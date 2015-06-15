@@ -593,8 +593,9 @@
 	  */
 	 function sitioNoDisponible() 
 	 {
-		  $plantilla = file_get_contents('plantillas/sitio_no_disponible.html');
-		  $documento = $plantilla;
+		  $plantilla = file_get_contents('plantillas/sitionodisponible.html');
+		  $parser_plantilla = new ParserSitioNoDisponible();
+		  $documento = $parser_plantilla->parsear($plantilla);
 		  echo $documento;
 	 }
 	 
@@ -605,7 +606,9 @@
 	 function errorInesperado()
 	 {
 		$plantilla = file_get_contents('plantillas/error.html');
-		echo $plantilla; 
+		$parser_plantilla = new ParserError();
+		$documento = $parser_plantilla->parsear($plantilla);
+		echo $documento;
 	 }
 	 
 	 
@@ -663,6 +666,10 @@
 		 mostrarBackDoor(); 
 	 }
 	 catch(UsuarioNoEncontradoException $e)
+	 {
+		 sitioNoDisponible();
+	 }
+	 catch(ProductoNoValidoException $e)
 	 {
 		 sitioNoDisponible();
 	 }

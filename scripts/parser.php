@@ -995,6 +995,9 @@
 		}
 	}
 	
+	/**
+	 * Parser para la página "backdoor"
+	 */
 	class ParserBackDoor extends ParserPlantilla 
 	{
 		public function __construct()
@@ -1014,4 +1017,25 @@
 		}
 	}
 	
+	/**
+	 * Parser para la página de "sitio no disponible"
+	 */
+	class ParserSitioNoDisponible extends ParserPlantilla 
+	{
+		public function __construct()
+		{
+			parent::__construct();
+		}
+	}
+	
+	/**
+	 * Parser para la página de error interno de la web.
+	 */
+	class ParserError extends ParserPlantilla 
+	{
+		public function __construct() 
+		{
+			parent::__construct();
+		}
+	}
 ?>
