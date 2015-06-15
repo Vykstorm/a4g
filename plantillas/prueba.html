@@ -1,0 +1,66 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<meta name="author" content="Victor Ruiz Gómez" />
+		<meta name="description" content="Publicar un producto" />
+		
+		<!-- estilos css -->
+		<link rel="stylesheet" type="text/css" href="../css/combobox.css" />
+		
+		<!-- js scripts -->
+		<script type="text/javascript" src="../js/combobox.js"></script>
+		
+		<title>
+		Publicar un producto
+		</title>
+	</head>
+	
+	<body>	
+		<!-- cuerpo del documento -->
+		<div id="cuerpo">				
+				<!-- un combobox para seleccionar el precio (no es un select del estándar HTML, es 
+				un elemento custom parecido, pero que a la vez, el campo es editable -->
+				<div class="combobox">
+					<input type="text" name="precio" id="cb_precio" />
+					<img class="dropdown"></img>
+					<div class="dropdownlist">
+					<a>Gratis</a>
+						<!-- incrementos de 1€ -->
+						<a>1€</a>
+						<a>2€</a>
+						<a>3€</a>
+						<a>4€</a>
+						<a>5€</a>
+						<!-- incrementos de 5 -->
+						<a>10€</a>
+						<a>15€</a>
+						<a>20€</a>
+						<a>25€</a>
+						<!-- incrementos de 10 -->
+						<a>35€</a>
+						<a>45€</a>
+						<a>55€</a>
+						<a>65€</a>
+						<a>75€</a>
+						<!-- incrementos de 20 -->
+						<a>125€</a>
+						<a>175€</a>
+						<a>225€</a>
+						<a>275€</a>
+						<a>325€</a>
+					</div>
+				</div> <br/>
+				<!-- Este es un pequeño script para "crear" el combobox -->
+				<script type="text/javascript">
+					new ComboBox('cb_precio');	
+				</script>
+				
+				<input type="submit" value="enviar" />
+			</form>
+		</div>
+	</body>
+</html>
+ 
+                                  

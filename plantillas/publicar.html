@@ -1,0 +1,264 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<meta name="author" content="Victor Ruiz Gómez" />
+		<meta name="description" content="Publicar un producto" />
+		
+		<!-- estilos css -->
+		<link rel="stylesheet" type="text/css" href="css/comun.css" />
+		<link rel="stylesheet" type="text/css" href="css/combobox.css" />
+		<link rel="stylesheet" type="text/css" href="css/publicar.css" />
+		
+		<!-- js scripts -->
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/comun.js"></script>
+		<script type="text/javascript" src="js/vip.js"></script>
+		<script type="text/javascript" src="js/combobox.js"></script>
+		
+		<title>
+		Publicar un producto
+		</title>
+	</head>
+	
+	<body>
+		<div class="hidden" id="fondo" onclick="esconderLoginYAlta();"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
+		login o registro -->
+		<!-- panel de alta de usuario -->
+		<div id="alta" class="hidden">	
+			<form>
+				<p>Crear una cuenta o <a href="javascript:mostrarLogin();">iniciar sesión</a></p>
+				<p class="hidden error" id="alta_error"></p>
+				<p class="hidden error" id="alta_error_nombre" >
+				</p>
+				<p class="hidden error" id="alta_error_passwd">
+				</p>
+				<p class="hidden error" id="alta_error_repasswd">
+				</p>
+				<div>
+					<label for="alta_nombre">Nombre: </label>
+					<input type="text" id="alta_nombre" name="alta_nombre" valido="no" onkeydown="nombreModificado();" />
+				</div>
+				<!-- el atributo valido, indica si el campo contiene un valor válido o no -->
+				<div>
+					<label for="alta_passwd">Contraseña: </label>
+					<input type="password" id="alta_passwd" name="alta_passwd" valido="no" onkeydown="passwdModificada();" />
+				</div>	
+				
+				<div>
+					<label for="alta_repasswd">Repita la contraseña: </label>
+					<input type="password" id="alta_repasswd" name="alta_repasswd" valido="no" onkeydown="repasswdModificada();" />
+				</div>
+				<div>
+				<button type="button" id="enviarAlta" onclick="enviaAlta();" disabled="disabled">Registrame ya!</button>
+				</div> 
+			</form>
+		</div>
+		<!-- panel de inicio de sesión de usuario -->
+		<div id="login" class="hidden">
+				<p>Iniciar sesión o <a href="javascript:mostrarAlta();">crear una cuenta</a></p>
+				<p class="hidden error" id="login_error"></p>
+				<div>
+					<label for="login_nombre">Nombre: </label>
+					<input type="text" id="login_nombre" name="login_nombre" value="##nombre_usuario##" />
+				</div>
+				
+				<div>
+					<label for="login_passwd">Contraseña: </label>
+					<input type="password" id="login_passwd" name="login_passwd" value="" />
+				</div>
+				<div>
+					<label for="recordar_nombre">Recordar nombre: </label>
+					<input type="checkbox" id="recordar_nombre" name="recordar_nombre" value="Recordar el nombre" />
+				</div>
+				<script type="text/javascript"> 
+					/* script para preseleccionar el campo de recordar nombre de usuario. */
+					document.getElementById('recordar_nombre').checked = ##recordar_nombre##; 
+					//document.getElementById('recordar_nombre').checked = true;
+				</script>
+	
+				<div>			
+					<button type="button" id="enviarLogin" onclick="enviaLogin();">Entrar!</button>
+				</div>
+		</div>
+		
+		
+		<!-- encabezado de la página -->
+		<div id="encabezado">
+			<!-- logo y nombre de la web -->  
+			<div id="web">
+				<a href="##indice##" target="_self">
+					<img id="logo" src="imagenes/logo.png" width="96" height="96" />
+					<div id="titulo">
+						<h1>A4G.com</h1>
+						<p>Diseños artísticos para videojuegos</p>
+					</div>
+				</a>
+			</div>
+			
+			<div id="menu">
+			<!-- buscador de productos -->
+				<div id="buscador">
+					<form id="buscar" action="##buscar##" method="post">
+						<input type="text" id="terminos" name="terminos" value="" onblur="if(this.value.length == 0) { mostrar(document.getElementById('terminos_overlay')); }" />
+						<!-- añadimos un span para que aparezca el texto "Buscar productos" por encima del input,
+						que al clickear en el desaparece -->
+						<span id="terminos_overlay" onclick="esconder(this); document.getElementById('terminos').focus(); ">Buscar productos</span>
+					</form>
+					<img id="iniciar_busqueda" src="imagenes/search.png" width="32" height="32" onclick="document.getElementById('buscar').submit();" />
+				</div>
+			
+				<!-- panel para usuarios anónimos -->
+			
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="anonimo" class="hidden">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="anonimo">
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<a href="javascript:mostrarAlta();">Registrarse</a> <br/>
+					<a href="javascript:mostrarLogin();">Iniciar sesión</a>
+				</div>
+			
+				<!-- panel para usuarios logeados -->
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="logeado">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="logeado" class="hidden"> 
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<div>
+					<a href="##perfil##" target="_self">Ir a perfil</a>  <br/>
+					<a href="javascript:usuarioLogout();" target="_self">Cerrar sesión</a>
+					</div>
+					<a id="carrito" href="##carrito##" target="_self"><img id="checkout" src="imagenes/carrito.png" width="48" height="48" /></a>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- cuerpo del documento -->
+		<div id="cuerpo">
+			<form id="publicar" enctype="multipart/form-data" action="##publicar##" method="post">
+				<div>
+					<label for="nombre">Nombre del producto: </label> <br/>
+					<input type="text" name="nombre" id="nombre" value="##nombre##" /> <label for="nombre">##error_nombre##</label> 
+				</div>
+				<div>
+					<label for="descripcion">Descripción: </label> <br/>
+					<textarea name="descripcion" rows="4" cols="50">##descripcion##</textarea> <label for="descripcion=">##error_descripcion##</label> <br/>
+				</div>
+				<div>
+					<label for="familia">Seleccione el tipo de producto: </label> <br/>
+					<select id="familia" name="familia" onchange="document.getElementById('publicar').submit();"> <!-- si el usuario selecciona la familia, enviamos la petición y actualizamos la página-->
+						<option id="familia_Modelos 3D" value="Modelos 3D">Modelos 3D</option>
+						<option id="familia_Texturas" value="Texturas">Textura</option>
+						<option id="familia_HDRI"  value="HDRI">HDRI</option>
+					</select> <label for="familia">##error_familia##</label>
+				</div>
+				<!-- pequeño script para preseleccionar el tipo de producto -->
+				<script type="text/javascript">
+					document.getElementById('familia').selectedIndex = -1;
+					<!-- %%TEXTURA%% -->
+					document.getElementById('familia_Texturas').selected = true;
+					<!-- FIN%%TEXTURA%% -->
+					<!-- %%MODELO3D%% -->
+					document.getElementById('familia_Modelos 3D').selected = true;					
+					<!-- FIN%%MODELO3D%% -->
+					<!-- %%HDRI%% -->
+					document.getElementById('familia_HDRI').selected = true;
+					<!-- FIN%%HDRI%% -->
+				</script>
+				
+			<!-- un combobox para seleccionar el precio (no es un select del estándar HTML, es 
+				un elemento custom parecido, pero que a la vez, el campo es editable -->
+				<div>
+					<label for="cb_precio_div">Indique el precio: </label>
+					<div class="combobox" name="cb_precio_div">
+						<input type="text" name="precio" id="cb_precio" value="##precio##" />
+						<img class="dropdown" />
+						<label for="precio">##error_precio##</label>
+						<div class="dropdownlist">
+							<a>gratis</a>
+							<!-- incrementos de 1€ -->
+							<a>1€</a>
+							<a>2€</a>
+							<a>3€</a>
+							<a>4€</a>
+							<a>5€</a>
+							<!-- incrementos de 5 -->
+							<a>10€</a>
+							<a>15€</a>
+							<a>20€</a>
+							<a>25€</a>
+							<!-- incrementos de 10 -->
+							<a>35€</a>
+							<a>45€</a>
+							<a>55€</a>
+							<a>65€</a>
+							<a>75€</a>
+							<!-- incrementos de 20 -->
+							<a>125€</a>
+							<a>175€</a>
+							<a>225€</a>
+							<a>275€</a>
+							<a>325€</a>
+						</div>
+					</div> 
+				</div>
+				<!-- Este es un pequeño script para "crear" el combobox -->
+				<script type="text/javascript">
+					new ComboBox('cb_precio');	
+				</script>
+					
+				<!-- esta parte del formulario se añadirá después de haber seleccionado la familia -->
+				
+				<!-- %%FORMULARIO_EXTENDIDO%% -->
+				<!-- un desplegable con un listado de categorías -->
+				<div>
+					<label for="categoria">Seleccione la categoría: </label> 
+					<select name="categoria">
+						<!-- %%CATEGORIA%% -->
+						<option value="##categoria##">##nombre##</option>
+						<!-- FIN%%CATEGORIA%% -->
+					</select> <label for="categoria">##error_categoria##</label>
+				</div>
+				<!-- pequeño script para preseleccionar una categoría -->
+				<script type="text/javascript">
+					// ##categoria##
+				</script>
+						
+			
+				<!-- %%TEXTURA%% -->
+				<!-- esto se incluirá si la familia seleecionada es "Texturas" --> 
+				<div>
+					<label for="textura">Seleccione la textura: </label>
+					<input type="file" name="textura" accept="image/jpeg, image/png" required="required" /><label for="textura">##error_textura##</label><br/>
+				</div>
+				<!-- FIN%%TEXTURA%% -->
+				<!-- %%HDRI%% -->
+				
+				<div>
+					<label for="hdri">Seleccione el HDRI: </label>
+					<input type="file" name="hdri" accept="image/jpeg, image/png" required="required" /><label for="hdri">##error_hdri##</label><br/>
+				</div>
+				<!-- FIN%%HDRI%% -->
+				
+				<!-- %%MODELO3D%% -->
+				<div>
+					<label for="modelo3d">Seleccione el modelo 3D: </label>
+					<input type="file" name="modelo3d" accept="application/zip, application/octet-stream" required="required" /><label for="modelo3d">##error_modelo3d##</label><br/>
+					<label for="modelo3d_imagenes[]">Añada capturas de imagen del modelo: </label>
+					<input type="file" name="modelo3d_imagenes[]" accept="image/jpeg, image/png" required="required" multiple="multiple"/><label for="modelo3d_imagenes[]">##error_modelo3d_imagenes##</label><br/>
+				</div>
+				<!-- FIN%%MODELO3D%% -->
+				
+				<input type="submit" value="publicar" />
+				<!-- FIN%%FORMULARIO_EXTENDIDO%% -->
+			</form>
+		</div>
+	</body>
+</html>
+ 
+                                  

@@ -1,0 +1,56 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<meta name="author" content="Victor Ruiz Gómez" />
+		<meta name="description" content="Login" />
+		
+		<!-- estilos css -->
+		<link rel="stylesheet" type="text/css" href="css/comun.css" />
+		
+		
+		<!-- js scripts -->
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/comun.js"></script>
+		<script type="text/javascript" src="js/backdoor.js"></script>
+		
+		<title>
+		Login
+		</title>
+	</head>
+	
+	<body>		
+		<!-- panel de inicio de sesión de usuario -->
+		<div id="login">
+			<p>Iniciar sesión o <a href="javascript:mostrarAlta();">crear una cuenta</a></p>
+			<p class="hidden error" id="login_error"></p>
+			<div>
+				<label for="login_nombre">Nombre: </label>
+				<input type="text" id="login_nombre" name="login_nombre" value="##nombre_usuario##" />
+			</div>
+			
+			<div>
+				<label for="login_passwd">Contraseña: </label>
+				<input type="password" id="login_passwd" name="login_passwd" value="" />
+			</div>
+			<div>
+				<label for="recordar_nombre">Recordar nombre: </label>
+				<input type="checkbox" id="recordar_nombre" name="recordar_nombre" value="Recordar el nombre" />
+			</div>
+			<script type="text/javascript"> 
+				/* script para preseleccionar el campo de recordar nombre de usuario. */
+				document.getElementById('recordar_nombre').checked = ##recordar_nombre##; 
+				//document.getElementById('recordar_nombre').checked = true;
+			</script>
+
+			<div>			
+				<button type="button" id="enviarLogin" onclick="enviaLogin();">Entrar!</button>
+			</div>
+		</div>
+		<form id="pagina_previa" action="##pagina_anterior##" class="hidden" method="post">
+		</form>
+	</body>
+</html>
+ 
+                                  

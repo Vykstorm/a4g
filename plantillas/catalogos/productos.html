@@ -1,0 +1,205 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<meta name="author" content="Victor Ruiz Gómez" />
+		<meta name="description" content="Productos de la categoría ##categoria##" />
+		
+		<!-- estilos css -->
+		<link rel="stylesheet" type="text/css" href="css/comun.css" />
+		<link rel="stylesheet" type="text/css" href="css/productos.css" />
+		
+		
+		<!-- js scripts -->
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/comun.js"></script>
+		
+		<title>
+		Productos de la categoría ##categoria##
+		</title>
+	</head>
+	
+	<body>
+		<div class="hidden" id="fondo" onclick="esconderLoginYAlta();"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
+		login o registro -->
+		<!-- panel de alta de usuario -->
+		<div id="alta" class="hidden">	
+			<form>
+				<p>Crear una cuenta o <a href="javascript:mostrarLogin();">iniciar sesión</a></p>
+				<p class="hidden error" id="alta_error"></p>
+				<p class="hidden error" id="alta_error_nombre" >
+				</p>
+				<p class="hidden error" id="alta_error_passwd">
+				</p>
+				<p class="hidden error" id="alta_error_repasswd">
+				</p>
+				<div>
+					<label for="alta_nombre">Nombre: </label>
+					<input type="text" id="alta_nombre" name="alta_nombre" valido="no" onkeydown="nombreModificado();" />
+				</div>
+				<!-- el atributo valido, indica si el campo contiene un valor válido o no -->
+				<div>
+					<label for="alta_passwd">Contraseña: </label>
+					<input type="password" id="alta_passwd" name="alta_passwd" valido="no" onkeydown="passwdModificada();" />
+				</div>	
+				
+				<div>
+					<label for="alta_repasswd">Repita la contraseña: </label>
+					<input type="password" id="alta_repasswd" name="alta_repasswd" valido="no" onkeydown="repasswdModificada();" />
+				</div>
+				<div>
+				<button type="button" id="enviarAlta" onclick="enviaAlta();" disabled="disabled">Registrame ya!</button>
+				</div> 
+			</form>
+		</div>
+		<!-- panel de inicio de sesión de usuario -->
+		<div id="login" class="hidden">
+				<p>Iniciar sesión o <a href="javascript:mostrarAlta();">crear una cuenta</a></p>
+				<p class="hidden error" id="login_error"></p>
+				<div>
+					<label for="login_nombre">Nombre: </label>
+					<input type="text" id="login_nombre" name="login_nombre" value="##nombre_usuario##" />
+				</div>
+				
+				<div>
+					<label for="login_passwd">Contraseña: </label>
+					<input type="password" id="login_passwd" name="login_passwd" value="" />
+				</div>
+				<div>
+					<label for="recordar_nombre">Recordar nombre: </label>
+					<input type="checkbox" id="recordar_nombre" name="recordar_nombre" value="Recordar el nombre" />
+				</div>
+				<script type="text/javascript"> 
+					/* script para preseleccionar el campo de recordar nombre de usuario. */
+					document.getElementById('recordar_nombre').checked = ##recordar_nombre##; 
+					//document.getElementById('recordar_nombre').checked = true;
+				</script>
+	
+				<div>			
+					<button type="button" id="enviarLogin" onclick="enviaLogin();">Entrar!</button>
+				</div>
+		</div>
+		
+		
+		<!-- encabezado de la página -->
+		<div id="encabezado">
+			<!-- logo y nombre de la web -->  
+			<div id="web">
+				<a href="##indice##" target="_self">
+					<img id="logo" src="imagenes/logo.png" width="96" height="96" />
+					<div id="titulo">
+						<h1>A4G.com</h1>
+						<p>Diseños artísticos para videojuegos</p>
+					</div>
+				</a>
+			</div>
+			
+			<div id="menu">
+			<!-- buscador de productos -->
+				<div id="buscador">
+					<form id="buscar" action="##buscar##" method="post">
+						<input type="text" id="terminos" name="terminos" value="" onblur="if(this.value.length == 0) { mostrar(document.getElementById('terminos_overlay')); }" />
+						<!-- añadimos un span para que aparezca el texto "Buscar productos" por encima del input,
+						que al clickear en el desaparece -->
+						<span id="terminos_overlay" onclick="esconder(this); document.getElementById('terminos').focus(); ">Buscar productos</span>
+					</form>
+					<img id="iniciar_busqueda" src="imagenes/search.png" width="32" height="32" onclick="document.getElementById('buscar').submit();" />
+				</div>
+			
+				<!-- panel para usuarios anónimos -->
+			
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="anonimo" class="hidden">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="anonimo">
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<a href="javascript:mostrarAlta();">Registrarse</a> <br/>
+					<a href="javascript:mostrarLogin();">Iniciar sesión</a>
+				</div>
+			
+				<!-- panel para usuarios logeados -->
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="logeado">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="logeado" class="hidden"> 
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<div>
+					<a href="##perfil##" target="_self">Ir a perfil</a>  <br/>
+					<a href="javascript:usuarioLogout();" target="_self">Cerrar sesión</a>
+					</div>
+					<a id="carrito" href="##carrito##" target="_self"><img id="checkout" src="imagenes/carrito.png" width="48" height="48" /></a>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<!-- cuerpo de la página -->
+		<div id="cuerpo">		
+			<!-- menú para ordenar los productos del catálogo -->
+			
+			<div id="ordenar">
+				<label for="orden">Ordenar por: </label>
+				<select id="orden" name="orden" onchange="window.open('##pagina_actual##&orden=' + document.getElementById('orden').options[document.getElementById('orden').selectedIndex].value, '_self');">
+					<option id="ordenar_por_coste" value="coste">coste</option>
+					<option id="ordenar_por_valoracion" value="valoracion">valoracion de los usuarios</option>
+					<option id="ordenar_por_nombre" value="nombre">nombre</option>
+					<option id="ordenar_por_fecha_publicacion" value="fecha_publicacion" selected="selected">fecha de publicación</option>
+				</select>
+			
+				<!-- script para preseleccionar una opción de la select (el orden actual del catálogo) -->
+				<script type="text/javascript">
+					document.getElementById('ordenar_por_##orden_actual##').selected = true;
+				</script>
+				
+				<a id="invertir_orden" href="##invertir_orden##" target="_self"><img src="imagenes/invertir.png" width="32" height="32" /></a>
+			</div>
+			
+			<!-- tabla con los productos de la página actual del catálogo -->
+			<table id="productos">
+				<!-- %%PRODUCTOS%% -->
+				<tr>
+					<!-- %%PRODUCTO%% -->
+					<td class="imagen"> <!-- clase para maquetar bien el pie de la imagen -->
+						<a href="##producto##" target="_self"><img src="##imagen##" width="##anchura_imagen##" height="##altura_imagen##" /></a>
+						<p><q>##nombre##</q> creado por <q>##autor##</q></p>
+					</td>
+					<!-- FIN%%PRODUCTO%% -->
+				</tr>
+				<!-- FIN%%PRODUCTOS%% -->
+			</table>
+			
+			<!-- menú para movernos por las páginas del catálogo -->
+			<table id="indice">
+				<tr>
+					<!-- página previa -->
+					<!-- %%PREV_PAGE%% -->
+					<td id="prev_page">
+						<a href="##pagina_previa##" target="_self"><img src="imagenes/prevpage.png" width="32" height="32"/></a>
+					</td>
+					<!-- FIN%%PREV_PAGE%% -->
+					
+					<!-- índices para ir a cualquier página -->
+					<!-- %%INDICE%% -->
+					<td>
+						<a href="##pagina##" target="_self">##num_pagina##</a>
+					</td>
+					<!-- FIN%%INDICE%% -->
+					
+					<!-- página siguiente -->
+					<!-- %%NEXT_PAGE%% -->
+					<td id="next_page">
+						<a href="##pagina_siguiente##" target="_self"><img src="imagenes/nextpage.png" width="32" height="32" /></a>
+					</td>
+					<!-- FIN%%NEXT_PAGE%% -->
+				</tr>
+			</table>
+		
+		</div>
+	</body>
+</html>
+ 
+                                  

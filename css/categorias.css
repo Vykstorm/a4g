@@ -1,0 +1,38 @@
+
+#cuerpo { 
+	text-align : center;
+}
+
+#categorias {
+	margin : auto;
+}
+
+#crear_categoria { 
+	margin-top : 40px;
+}
+
+/* estilo para el panel de alta de categorías */
+#alta_categoria {
+	margin: auto;
+	position: fixed;
+	top : 30%;
+	left : 30%;
+	width : 40%;
+	background-image : url("imagenes/background.png");
+	padding-top : 4%;
+	padding-bottom : 5%;
+	z-index : 5000;
+
+	border-style : groove;
+	border-width : 3px;
+}
+
+
+#alta_categoria div { 
+	margin-bottom : 11px;
+}
+
+#alta_categoria p, #alta_categoria label,  #alta_categoria input, #alta_categoria button {
+	margin-left : 110px;
+}
+

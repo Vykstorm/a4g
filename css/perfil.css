@@ -1,0 +1,47 @@
+
+
+/* estilo para dar formato al perfil (resumen del usuario) */
+#perfil { 
+	margin-left : 10%;
+	position : relative;
+}
+
+#foto_perfil { 
+	width : 256px;
+	height : 256px;
+}	
+
+#resumen {
+	position : absolute;
+	top : 0px;
+	left : 300px;
+}
+
+
+/* estilo para dar formato a los listados de productos */
+
+#productos {
+	position : relative;
+	margin-left : 10%;
+	margin-top : 50px;
+}
+
+#publicaciones {
+	position : absolute;
+	left : 0;
+	top : 0;
+	width : 45%;
+}
+
+#compras {
+	position : absolute;
+	right : 0;
+	top : 0;
+	width : 45%;
+}
+
+#publicaciones td, #compras td {
+	padding-bottom : 30px;
+}
+
+

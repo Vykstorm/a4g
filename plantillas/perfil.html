@@ -1,0 +1,201 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<meta name="author" content="Victor Ruiz Gómez" />
+		<meta name="description" content="Perfil de ##nombre##" />
+		
+		<!-- estilos css -->
+		<link rel="stylesheet" type="text/css" href="css/comun.css" />
+		<link rel="stylesheet" type="text/css" href="css/perfil.css" />
+		
+		<!-- js scripts -->
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/comun.js"></script>
+		<script type="text/javascript" src="js/vip.js"></script>
+		
+		<title>
+		Perfil de ##nombre##
+		</title>
+	</head>
+	
+	<body>
+		<div class="hidden" id="fondo" onclick="esconderLoginYAlta();"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
+		login o registro -->
+		<!-- panel de alta de usuario -->
+		<div id="alta" class="hidden">	
+			<form>
+				<p>Crear una cuenta o <a href="javascript:mostrarLogin();">iniciar sesión</a></p>
+				<p class="hidden error" id="alta_error"></p>
+				<p class="hidden error" id="alta_error_nombre" >
+				</p>
+				<p class="hidden error" id="alta_error_passwd">
+				</p>
+				<p class="hidden error" id="alta_error_repasswd">
+				</p>
+				<div>
+					<label for="alta_nombre">Nombre: </label>
+					<input type="text" id="alta_nombre" name="alta_nombre" valido="no" onkeydown="nombreModificado();" />
+				</div>
+				<!-- el atributo valido, indica si el campo contiene un valor válido o no -->
+				<div>
+					<label for="alta_passwd">Contraseña: </label>
+					<input type="password" id="alta_passwd" name="alta_passwd" valido="no" onkeydown="passwdModificada();" />
+				</div>	
+				
+				<div>
+					<label for="alta_repasswd">Repita la contraseña: </label>
+					<input type="password" id="alta_repasswd" name="alta_repasswd" valido="no" onkeydown="repasswdModificada();" />
+				</div>
+				<div>
+				<button type="button" id="enviarAlta" onclick="enviaAlta();" disabled="disabled">Registrame ya!</button>
+				</div> 
+			</form>
+		</div>
+		<!-- panel de inicio de sesión de usuario -->
+		<div id="login" class="hidden">
+				<p>Iniciar sesión o <a href="javascript:mostrarAlta();">crear una cuenta</a></p>
+				<p class="hidden error" id="login_error"></p>
+				<div>
+					<label for="login_nombre">Nombre: </label>
+					<input type="text" id="login_nombre" name="login_nombre" value="##nombre_usuario##" />
+				</div>
+				
+				<div>
+					<label for="login_passwd">Contraseña: </label>
+					<input type="password" id="login_passwd" name="login_passwd" value="" />
+				</div>
+				<div>
+					<label for="recordar_nombre">Recordar nombre: </label>
+					<input type="checkbox" id="recordar_nombre" name="recordar_nombre" value="Recordar el nombre" />
+				</div>
+				<script type="text/javascript"> 
+					/* script para preseleccionar el campo de recordar nombre de usuario. */
+					document.getElementById('recordar_nombre').checked = ##recordar_nombre##; 
+					//document.getElementById('recordar_nombre').checked = true;
+				</script>
+	
+				<div>			
+					<button type="button" id="enviarLogin" onclick="enviaLogin();">Entrar!</button>
+				</div>
+		</div>
+		
+		
+		<!-- encabezado de la página -->
+		<div id="encabezado">
+			<!-- logo y nombre de la web -->  
+			<div id="web">
+				<a href="##indice##" target="_self">
+					<img id="logo" src="imagenes/logo.png" width="96" height="96" />
+					<div id="titulo">
+						<h1>A4G.com</h1>
+						<p>Diseños artísticos para videojuegos</p>
+					</div>
+				</a>
+			</div>
+			
+			<div id="menu">
+			<!-- buscador de productos -->
+				<div id="buscador">
+					<form id="buscar" action="##buscar##" method="post">
+						<input type="text" id="terminos" name="terminos" value="" onblur="if(this.value.length == 0) { mostrar(document.getElementById('terminos_overlay')); }" />
+						<!-- añadimos un span para que aparezca el texto "Buscar productos" por encima del input,
+						que al clickear en el desaparece -->
+						<span id="terminos_overlay" onclick="esconder(this); document.getElementById('terminos').focus(); ">Buscar productos</span>
+					</form>
+					<img id="iniciar_busqueda" src="imagenes/search.png" width="32" height="32" onclick="document.getElementById('buscar').submit();" />
+				</div>
+			
+				<!-- panel para usuarios anónimos -->
+			
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="anonimo" class="hidden">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="anonimo">
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<a href="javascript:mostrarAlta();">Registrarse</a> <br/>
+					<a href="javascript:mostrarLogin();">Iniciar sesión</a>
+				</div>
+			
+				<!-- panel para usuarios logeados -->
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="logeado">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="logeado" class="hidden"> 
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<div>
+					<!-- <a href="##perfil##" target="_self">Ir a perfil</a>  -->
+					<br/>
+					<a href="javascript:usuarioLogout();" target="_self">Cerrar sesión</a>
+					</div>
+					<a id="carrito" href="##carrito##" target="_self"><img id="checkout" src="imagenes/carrito.png" width="48" height="48" /></a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- cuerpo de la página -->
+		<div id="cuerpo">
+			<div id="perfil"> <!-- aqui irá el resumen del usuario (el perfil, con la foto, e información sobre el mismo) -->
+				<img id="foto_perfil" src="##foto_perfil##" width="256" height="256" />
+				<!-- %%MI_PERFIL%% -->
+				<br/><button type="button" onclick="window.open('##cambiar_foto##', '_self');">Cambiar foto</button>
+				<!-- FIN%%MI_PERFIL%% -->
+				<div id="resumen">
+					<p>
+						<!-- %%MI_PERFIL%% -->
+						Eres miembro desde el ##fecha_registro## <br/>
+						Has subido un total de ##num_total_productos## productos <br/>
+						<!-- FIN%%MI_PERFIL%% -->
+						<!-- %%PERFIL_AJENO%% -->
+						Es miembro desde el ##fecha_registro## <br/>
+						Ha subido ##num_total_productos## productos			
+						<!-- FIN%%PERFIL_AJENO%% -->
+					</p> <br/>
+					
+					<!-- un botón para publicar un nuevo producto -->
+					<!-- %%MI_PERFIL%% -->
+					<button type="button" id="publicar" onclick="window.open('##publicar##', '_self');">Publicar un nuevo producto</button>
+					<!-- FIN%%MI_PERFIL%% -->
+				</div>
+			</div>			
+			
+			<div id="productos">
+			<div id="publicaciones"> <!-- aqui irán los productos publicados por el usuario -->
+				<h1>Productos publicados</h1>
+				<table>				
+					<!-- %%PRODUCTO_PUBLICADO%% -->
+					<tr>
+						<td class="imagen"><a href="##producto##" target="_self"><img src="##imagen##" width="192" height="192" /></a><p>##nombre##</p></td>
+						<td> <!-- detalles del producto -->
+							Publicado el ##fecha_publicacion## <br/>
+							Fue valorado con un ##valoracion## por los usuarios <br/>
+						</td>
+					</tr>
+					<!-- FIN%%PRODUCTO_PUBLICADO%% -->
+				</table>
+			</div>
+			<!-- %%MI_PERFIL%% -->
+			<div id="compras"> <!-- aqui irán los productos comprados por el usuario -->
+				<h1>Productos comprados</h1>
+				<table>
+					<!-- %%PRODUCTO_COMPRADO%% -->
+					<tr>
+						<td class="imagen"><a href="##producto##" target="_self"><img src="##imagen##" width="192" height="192"/></a><p>##nombre##</p></td>
+						<td> <!-- detalles del producto -->
+							Fue publicado por ##autor## el ##fecha_publicacion## <br/>
+							Tu lo compraste el ##fecha_compra##
+						</td>
+					</tr>
+					<!-- FIN%%PRODUCTO_COMPRADO%% -->
+				</table>
+			</div>
+			<!-- FIN%%MI_PERFIL%% -->
+			</div>
+		</div>
+	</body>
+</html>
+ 
+                                  

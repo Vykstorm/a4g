@@ -1,0 +1,48 @@
+
+
+#cuerpo { 
+	margin-left : 10%;
+	position : relative;
+}
+
+/* estilo para el carrusel/imagenes del producto */
+.previsualizacion {
+	border-style : groove;
+	border-width : 2;
+}	
+
+
+/* estilo para el panel de detalles del producto */
+#detalles {
+	position : absolute;
+	right : 10%;
+	top : 50px;
+	width : 30%;
+}
+
+/* estilo para el menú de acciones del usuario */
+#accion { 
+	position : absolute;
+	right : 10%;
+	top : 300px;
+	width : 30%;
+}
+
+#valorar, #descargar, #comprar {
+	margin-bottom : 30px;
+}
+
+#comprar:hover {
+	cursor : pointer;
+}
+
+/* estilo para el pie del documento */
+#pie { 
+	margin-top : 60px;
+}
+
+/* estilo para el listado de comentarios del producto */
+
+#comentar {
+	margin-top : 40px;
+}

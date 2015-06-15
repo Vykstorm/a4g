@@ -1,0 +1,30 @@
+
+#cuerpo {
+	position : relative;
+	padding-left : 5%;
+}
+
+/* estilo para el listado de productos */
+#productos {
+	position : absolute;
+	left : 5%;
+	width : 40%;
+}
+
+#productos td{ 
+	padding-bottom : 30px;
+}	
+
+#productos td q {
+	font-family : Zapf Chancery, serif;
+	font-size : 1.2em;
+
+}
+
+/* estilo para el resumen del carrito y el botón de checkout */
+#checkout {
+	position : absolute;
+	top : 0;
+	right : 20%;
+	width : 20%;
+}

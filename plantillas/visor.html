@@ -1,0 +1,327 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<meta name="author" content="Victor Ruiz Gómez" />
+		<meta name="description" content="Visualizar producto ##nombre##" />
+		
+		<!-- estilos css -->
+		<link rel="stylesheet" type="text/css" href="css/comun.css" />
+		<link rel="stylesheet" type="text/css" href="css/visor.css" />
+		
+		
+		<!-- js scripts -->
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/comun.js"></script>
+		<script type="text/javascript" src="js/visor.js"></script>
+		
+		<title>
+		##nombre##
+		</title>
+	</head>
+	
+	<body>
+		<div class="hidden" id="fondo" onclick="esconderLoginYAlta();"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
+		login o registro -->
+		<!-- panel de alta de usuario -->
+		<div id="alta" class="hidden">	
+			<form>
+				<p>Crear una cuenta o <a href="javascript:mostrarLogin();">iniciar sesión</a></p>
+				<p class="hidden error" id="alta_error"></p>
+				<p class="hidden error" id="alta_error_nombre" >
+				</p>
+				<p class="hidden error" id="alta_error_passwd">
+				</p>
+				<p class="hidden error" id="alta_error_repasswd">
+				</p>
+				<div>
+					<label for="alta_nombre">Nombre: </label>
+					<input type="text" id="alta_nombre" name="alta_nombre" valido="no" onkeydown="nombreModificado();" />
+				</div>
+				<!-- el atributo valido, indica si el campo contiene un valor válido o no -->
+				<div>
+					<label for="alta_passwd">Contraseña: </label>
+					<input type="password" id="alta_passwd" name="alta_passwd" valido="no" onkeydown="passwdModificada();" />
+				</div>	
+				
+				<div>
+					<label for="alta_repasswd">Repita la contraseña: </label>
+					<input type="password" id="alta_repasswd" name="alta_repasswd" valido="no" onkeydown="repasswdModificada();" />
+				</div>
+				<div>
+				<button type="button" id="enviarAlta" onclick="enviaAlta();" disabled="disabled">Registrame ya!</button>
+				</div> 
+			</form>
+		</div>
+		<!-- panel de inicio de sesión de usuario -->
+		<div id="login" class="hidden">
+				<p>Iniciar sesión o <a href="javascript:mostrarAlta();">crear una cuenta</a></p>
+				<p class="hidden error" id="login_error"></p>
+				<div>
+					<label for="login_nombre">Nombre: </label>
+					<input type="text" id="login_nombre" name="login_nombre" value="##nombre_usuario##" />
+				</div>
+				
+				<div>
+					<label for="login_passwd">Contraseña: </label>
+					<input type="password" id="login_passwd" name="login_passwd" value="" />
+				</div>
+				<div>
+					<label for="recordar_nombre">Recordar nombre: </label>
+					<input type="checkbox" id="recordar_nombre" name="recordar_nombre" value="Recordar el nombre" />
+				</div>
+				<script type="text/javascript"> 
+					/* script para preseleccionar el campo de recordar nombre de usuario. */
+					document.getElementById('recordar_nombre').checked = ##recordar_nombre##; 
+					//document.getElementById('recordar_nombre').checked = true;
+				</script>
+	
+				<div>			
+					<button type="button" id="enviarLogin" onclick="enviaLogin();">Entrar!</button>
+				</div>
+		</div>
+		
+		
+		<!-- encabezado de la página -->
+		<div id="encabezado">
+			<!-- logo y nombre de la web -->  
+			<div id="web">
+				<a href="##indice##" target="_self">
+					<img id="logo" src="imagenes/logo.png" width="96" height="96" />
+					<div id="titulo">
+						<h1>A4G.com</h1>
+						<p>Diseños artísticos para videojuegos</p>
+					</div>
+				</a>
+			</div>
+			
+			<div id="menu">
+			<!-- buscador de productos -->
+				<div id="buscador">
+					<form id="buscar" action="##buscar##" method="post">
+						<input type="text" id="terminos" name="terminos" value="" onblur="if(this.value.length == 0) { mostrar(document.getElementById('terminos_overlay')); }" />
+						<!-- añadimos un span para que aparezca el texto "Buscar productos" por encima del input,
+						que al clickear en el desaparece -->
+						<span id="terminos_overlay" onclick="esconder(this); document.getElementById('terminos').focus(); ">Buscar productos</span>
+					</form>
+					<img id="iniciar_busqueda" src="imagenes/search.png" width="32" height="32" onclick="document.getElementById('buscar').submit();" />
+				</div>
+			
+				<!-- panel para usuarios anónimos -->
+			
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="anonimo" class="hidden">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="anonimo">
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<a href="javascript:mostrarAlta();">Registrarse</a> <br/>
+					<a href="javascript:mostrarLogin();">Iniciar sesión</a>
+				</div>
+			
+				<!-- panel para usuarios logeados -->
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="logeado">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="logeado" class="hidden"> 
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<div>
+					<a href="##perfil##" target="_self">Ir a perfil</a>  <br/>
+					<a href="javascript:usuarioLogout();" target="_self">Cerrar sesión</a>
+					</div>
+					<a id="carrito" href="##carrito##" target="_self"><img id="checkout" src="imagenes/carrito.png" width="48" height="48" /></a>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- cuerpo del documento -->
+		<div id="cuerpo">
+			<h1>##nombre##</h1>
+			
+			<div id="visor">
+				<!-- a continuación metemos un carrusel de imágenes si el producto es un modelo 3D
+				o una imagen si el producto es de la familia HDRI o Texturas -->
+				<!-- %%MODELO3D%% -->
+				<div id="carrusel">
+					<!-- esto pequeño script implementa la lógica del carrusel -->
+					<script type="text/javascript">
+						var imagenes = [##imagenes##]; 	// imagenes del carrusel
+						var imagen_actual = 0; // offset de la imagen actual
+						
+						function actualizarImagen() 
+						{	
+							document.getElementById('imagen_carrusel').src = imagenes[imagen_actual];
+						}
+						
+						function imagenPrevia()
+						{
+							imagen_actual = imagen_actual - 1;
+							if(imagen_actual < 0)
+							{
+								imagen_actual = imagenes.length - 1;
+							}
+							actualizarImagen();
+						}
+						
+						function imagenSiguiente() 
+						{
+							imagen_actual = imagen_actual + 1;
+							if(imagen_actual >= imagenes.length)
+							{
+								imagen_actual = 0; 
+							}
+							actualizarImagen();
+						}
+					</script>
+					<!-- tabla que contiene la imágen que se muestra, y flechas para pasar a la 
+					siguiente y a la anterior imagen -->
+					<table>
+						<tr>
+							<td>
+								<img id="imagen_carrusel_previa" src="imagenes/prevpage.png" width="32" height="64" onclick="imagenPrevia();" />
+							</td>
+							<td>
+								<img class="previsualizacion" id="imagen_carrusel" src="##imagen##" width="500" height="500" />
+							</td>
+							<td>
+								<img id="imagen_carrusel_siguiente" src="imagenes/nextpage.png" width="32" height="64" onclick="imagenSiguiente();"/>
+							</td>
+						</tr>
+					</table>
+					
+					<!-- este script es para indicar que, si solo hay una imágen, entonces, no queremos que aparezcan
+					las flechas para mover la imagen -->
+					<script type="text/javascript">
+						if(imagenes.length == 1)
+						{
+							esconder(document.getElementById('imagen_carrusel_previa'));
+							esconder(document.getElementById('imagen_carrusel_siguiente'));
+						}
+					</script>
+				</div>
+				<div class="hidden" id="visor3D">
+					<p>Visor 3D</p>
+				</div>
+				<button type="button" id="ver3D" onclick="verEn3D();">Ver en 3D</button>
+				<!-- FIN%%MODELO3D%% -->
+				<!-- %%HDRI%% -->
+				<img class="previsualizacion" src="##imagen##" width="##anchura##" height="##altura##" />
+				<!-- FIN%%HDRI%% -->
+				<!-- %%TEXTURA%% -->
+				<img class="previsualizacion" src="##imagen##" width="##anchura##" height="##altura##" />
+				<!-- FIN%%TEXTURA%% -->
+			</div>
+			
+			<table id="detalles">
+				<tr>
+					<th>Autor: </th> <td>##autor##</td>
+				</tr>
+				<tr>
+					<th>Valoración: </th> <td>##valoracion##</td>
+				</tr>
+				<tr>
+					<th>Fecha publicación: </th> <td>##fecha_publicacion##</td>
+				</tr>
+				<!-- %%MODELO3D%% -->
+				<tr>
+					<th>Número de vértices: </th> <td>##num_vertices##</td>
+				</tr>
+				<tr>
+					<th>Número de polígonos: </th> <td>##num_poligonos## </td>
+				</tr>
+				<tr>
+					<th>Texturas: </th> <td>##texturas##</td>
+				</tr>
+				<!-- FIN%%MODELO3D%% -->
+				<!-- %%TEXTURA%% -->
+				<tr>
+					<th>Dimensiones: </th> <td>##anchura_original## x ##altura_original##</td>
+				</tr>
+				<tr>
+					<th>Formato: </th> <td>##formato##</td>
+				</tr>
+				<!-- FIN%%TEXTURA%% -->
+				<!-- %%HDRI%% -->
+				<tr>
+					<th>Dimensiones: </th> <td>##anchura_original## x ##altura_original##</td>
+				</tr>
+				<tr>
+					<th>Formato: </th> <td>##formato##</td>
+				</tr>
+				<!-- FIN%%HDRI%% -->
+			</table>
+			
+			<!-- menú donde el usuario podrá descargar, comprar, valorar el producto ... -->
+			<div id="accion">
+				<!-- %%COMPRAR%% -->
+				<img alt="Añadir al carrito" id="comprar" onclick="comprarProducto(##producto##);" width="64" height="64" src="imagenes/meteralcarrito.png"></img>
+				<!-- FIN%%COMPRAR%% -->
+				<!-- %%DESCARGAR%% -->
+				<a id="descargar" href="product.php?accion=descargar&producto=##producto##">
+					<img alt="descargar" src="imagenes/descargar.png" width="64" height="64" />
+				</a>
+				<!-- FIN%%DESCARGAR%% -->
+				
+				<!-- %%VALORAR%% -->
+				<div id="valorar">
+					<label for="valoracion">Indica tu valoración: </label>
+					<select id="valoracion" name="valoracion" onchange="valorarProducto(##producto##, this.options[this.selectedIndex].value);">
+						<option id="valoracion_0" value="0">0</option>
+						<option id="valoracion_1" value="1">1</option>
+						<option id="valoracion_2" value="2">2</option>
+						<option id="valoracion_3" value="3">3</option>
+						<option id="valoracion_4" value="4">4</option>
+						<option id="valoracion_5" value="5">5</option>
+						<option id="valoracion_6" value="6">6</option>
+						<option id="valoracion_7" value="7">7</option>
+						<option id="valoracion_8" value="8">8</option>
+						<option id="valoracion_9" value="9">9</option>
+						<option id="valoracion_10" value="10">10</option>
+					</select>
+					<!-- pequeño script para preseleccionar una opción -->
+					<script type="text/javascript">
+						document.getElementById('valoracion_##valoracion##').selected = true;
+					</script>
+				</div>
+				<!-- FIN%%VALORAR%% -->
+			</div>
+			
+			<!-- aqui irá la descripción proporcionada por el autor del producto, y los
+			comentarios -->
+			<div id="pie">
+				<p>
+					##descripcion##
+				</p>
+				<div id="comentarios">
+					<!-- aqui los comentarios de los usuarios -->
+					<table class="listado">
+						<!-- %%COMENTARIO%% -->
+						<tr>
+							<td class="imagen"><img src="##foto_perfil##" width="32" height="32" /><p>##nombre_usuario##</p></td>
+							<td>Dice: ##comentario##</td>
+						</tr>
+						<!-- FIN%%COMENTARIO%% -->
+					</table> 
+					
+					<!-- aqui colocaremos un campo editable donde el usuario podrá introducir su
+					comentario -->
+					<!-- %%USUARIO_LOGEADO%% -->
+					<div id="comentar">
+						<form action="##comentar##" method="post">
+							<textarea name="comentario" rows="3" cols="100">Escibe aqui tu comentario...</textarea> <br/>
+							<input type="submit" value="Enviar" />
+							
+						</form>
+					</div>
+					<!-- FIN%%USUARIO_LOGEADO%% -->
+				
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+ 
+                                  

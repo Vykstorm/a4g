@@ -1,0 +1,25 @@
+
+/* estilo para el cuerpo y el pie del documento */
+
+#cuerpo, #pie {
+	text-align : center;
+}
+
+#familias, #pie h1, #pie table  { 
+	margin : auto;
+}
+
+#familias td {
+	padding-left : 16px;
+	padding-right : 16px;
+	padding-bottom : 16px;
+}
+
+#pie { 
+	margin-top : 100px;
+}
+
+#pie h1 { 
+	margin-bottom : 20px;
+}
+

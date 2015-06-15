@@ -1,0 +1,183 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<meta name="author" content="Victor Ruiz Gómez" />
+		<meta name="description" content="Categorias de ##familia##" />
+		
+		<!-- estilos css -->
+		<link rel="stylesheet" type="text/css" href="css/comun.css" />
+		<link rel="stylesheet" type="text/css" href="css/categorias.css" />
+		
+		<!-- js scripts -->
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/comun.js"></script>
+		<script type="text/javascript" src="js/categorias.js"></script>
+		
+		<title>
+		Categorías de ##familia##
+		</title>
+	</head>
+	
+	<body>
+		<div class="hidden" id="fondo" onclick="restaurarPagina();"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
+		login o registro -->
+		<!-- panel de alta de usuario -->
+		<div id="alta" class="hidden">	
+			<form>
+				<p>Crear una cuenta o <a href="javascript:mostrarLogin();">iniciar sesión</a></p>
+				<p class="hidden error" id="alta_error"></p>
+				<p class="hidden error" id="alta_error_nombre" >
+				</p>
+				<p class="hidden error" id="alta_error_passwd">
+				</p>
+				<p class="hidden error" id="alta_error_repasswd">
+				</p>
+				<div>
+					<label for="alta_nombre">Nombre: </label>
+					<input type="text" id="alta_nombre" name="alta_nombre" valido="no" onkeydown="nombreModificado();" />
+				</div>
+				<!-- el atributo valido, indica si el campo contiene un valor válido o no -->
+				<div>
+					<label for="alta_passwd">Contraseña: </label>
+					<input type="password" id="alta_passwd" name="alta_passwd" valido="no" onkeydown="passwdModificada();" />
+				</div>	
+				
+				<div>
+					<label for="alta_repasswd">Repita la contraseña: </label>
+					<input type="password" id="alta_repasswd" name="alta_repasswd" valido="no" onkeydown="repasswdModificada();" />
+				</div>
+				<div>
+				<button type="button" id="enviarAlta" onclick="enviaAlta();" disabled="disabled">Registrame ya!</button>
+				</div> 
+			</form>
+		</div>
+		<!-- panel de inicio de sesión de usuario -->
+		<div id="login" class="hidden">
+				<p>Iniciar sesión o <a href="javascript:mostrarAlta();">crear una cuenta</a></p>
+				<p class="hidden error" id="login_error"></p>
+				<div>
+					<label for="login_nombre">Nombre: </label>
+					<input type="text" id="login_nombre" name="login_nombre" value="##nombre_usuario##" />
+				</div>
+				
+				<div>
+					<label for="login_passwd">Contraseña: </label>
+					<input type="password" id="login_passwd" name="login_passwd" value="" />
+				</div>
+				<div>
+					<label for="recordar_nombre">Recordar nombre: </label>
+					<input type="checkbox" id="recordar_nombre" name="recordar_nombre" value="Recordar el nombre" />
+				</div>
+				<script type="text/javascript"> 
+					/* script para preseleccionar el campo de recordar nombre de usuario. */
+					document.getElementById('recordar_nombre').checked = ##recordar_nombre##; 
+					//document.getElementById('recordar_nombre').checked = true;
+				</script>
+	
+				<div>			
+					<button type="button" id="enviarLogin" onclick="enviaLogin();">Entrar!</button>
+				</div>
+		</div>
+		
+		
+		<!-- encabezado de la página -->
+		<div id="encabezado">
+			<!-- logo y nombre de la web -->  
+			<div id="web">
+				<a href="##indice##" target="_self">
+					<img id="logo" src="imagenes/logo.png" width="96" height="96" />
+					<div id="titulo">
+						<h1>A4G.com</h1>
+						<p>Diseños artísticos para videojuegos</p>
+					</div>
+				</a>
+			</div>
+			
+			<div id="menu">
+			<!-- buscador de productos -->
+				<div id="buscador">
+					<form id="buscar" action="##buscar##" method="post">
+						<input type="text" id="terminos" name="terminos" value="" onblur="if(this.value.length == 0) { mostrar(document.getElementById('terminos_overlay')); }" />
+						<!-- añadimos un span para que aparezca el texto "Buscar productos" por encima del input,
+						que al clickear en el desaparece -->
+						<span id="terminos_overlay" onclick="esconder(this); document.getElementById('terminos').focus(); ">Buscar productos</span>
+					</form>
+					<img id="iniciar_busqueda" src="imagenes/search.png" width="32" height="32" onclick="document.getElementById('buscar').submit();" />
+				</div>
+			
+				<!-- panel para usuarios anónimos -->
+			
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="anonimo" class="hidden">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="anonimo">
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<a href="javascript:mostrarAlta();">Registrarse</a> <br/>
+					<a href="javascript:mostrarLogin();">Iniciar sesión</a>
+				</div>
+			
+				<!-- panel para usuarios logeados -->
+				<!-- %%USUARIO_LOGEADO%% -->
+				<div id="logeado">
+				<!-- FIN%%USUARIO_LOGEADO%% -->
+				<!-- %%USUARIO_ANONIMO%% -->
+				<div id="logeado" class="hidden"> 
+				<!-- FIN%%USUARIO_ANONIMO%% -->
+					<div>
+					<a href="##perfil##" target="_self">Ir a perfil</a>  <br/>
+					<a href="javascript:usuarioLogout();" target="_self">Cerrar sesión</a>
+					</div>
+					<a id="carrito" href="##carrito##" target="_self"><img id="checkout" src="imagenes/carrito.png" width="48" height="48" /></a>
+				</div>
+			</div>
+		</div>
+		
+		<div id="cuerpo">
+			<!-- cuerpo de la página -->
+			<table id="categorias" class="listado">
+				<!-- %%CATEGORIAS%% -->
+				<tr>
+					<!-- %%CATEGORIA%% -->
+					<td class="imagen">
+						<a href="##categoria##" target="_self"><img src="##imagen##" width="##anchura_imagen##" height="##altura_imagen##" /></a>
+						<p>
+							##nombre##
+						</p>
+					</td>
+					<!-- FIN%%CATEGORIA%% --> 
+				</tr>
+				<!-- FIN%%CATEGORIAS%% -->
+			</table>
+			
+			<!-- %%USUARIO_ADMIN%% -->
+			<button id="crear_categoria" type="button" onclick="altaCategoria();">Crear una nueva categoría</button>
+			<!-- FIN%%USUARIO_ADMIN%% -->
+		</div>
+		
+		<!-- este panel aparece cuando el usuario da de alta una nueva categoría --> 
+		<!-- %%USUARIO_ADMIN%% -->
+		<div id="alta_categoria" class="hidden">
+				<p id="alta_categoria_error" class="hidden error">
+				
+				</p>
+				<form enctype="multipart/form-data" id="alta_categoria_form" method="POST">
+				<input type="hidden" value="##familia##" id="categoria_familia" />
+				<div>
+					<label for="categoria_nombre">Indique el nombre de la nueva categoría: </label> <br/>
+					<input type="text" name="nombre" id="categoria_nombre" valido="no" onchange="if(this.value.length > 0) { this.setAttribute('valido', 'si'); if(document.getElementById('categoria_imagen').getAttribute('valido') == 'si') { document.getElementById('enviar_alta_categoria').disabled = false; } } else { this.setAttribute('valido', 'no'); document.getElementById('enviar_alta_categoria').disabled = true; }" />
+				</div>
+				<div>
+					<label for="categoria_imagen">Seleccione una imagen: </label>
+					<input type="file" name="imagen" id="categoria_imagen" required="required" accept="image/jpeg, image/png" valido="no" onchange="this.setAttribute('valido', 'si'); if(document.getElementById('categoria_nombre').getAttribute('valido') == 'si') { document.getElementById('enviar_alta_categoria').disabled = false; }" />
+				</div>
+				</form>
+				<button id="enviar_alta_categoria" type="button" disabled="disabled" onclick="enviarAltaCategoria();">Crear</button>
+		</div>
+		<!-- FIN%%USUARIO_ADMIN%% -->
+	</body>
+</html>
+ 
+                                  
