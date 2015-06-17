@@ -269,7 +269,7 @@
 		 public static function getProductosDestacados($familia, $num_productos)
 		 {
 			 $query = 
-			 'SELECT P.id, P.nombre nombre, U.nombre autor FROM (SELECT id, nombre, id_autor, id_categoria FROM final_producto) P
+			 'SELECT P.id, P.nombre nombre, U.nombre autor FROM (SELECT id, nombre, id_autor, id_categoria FROM final_producto WHERE eliminado = FALSE) P
 			 INNER JOIN (SELECT id FROM final_categoria WHERE familia = :1) C ON P.id_categoria = C.id INNER JOIN _final_valoracion_producto V ON P.id = V.id
 			 INNER JOIN (SELECT id, nombre FROM final_usuario) U ON P.id_autor = U.id ORDER BY valoracion DESC, P.id ASC ';
 			 $query .= 'LIMIT ' . $num_productos . ' OFFSET 0';
