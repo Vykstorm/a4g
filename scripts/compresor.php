@@ -89,7 +89,7 @@
 			}
 			else 
 			{
-				imagepng($imagen_final, $destino, 4, PNG_ALL_FILTER);
+				imagepng($imagen_final, $destino, 4);
 			}
 			
 			/* destruimos las imagenes (no ficheros) */
