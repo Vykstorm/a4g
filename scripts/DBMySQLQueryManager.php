@@ -447,7 +447,7 @@
 				 {
 					 $query .= ', fecha_publicacion';
 				 } 
-				 $query .= ' FROM final_producto WHERE id_categoria = :1) P INNER JOIN final_usuario U ON P.id_autor = U.id ORDER BY ';
+				 $query .= ' FROM final_producto WHERE (id_categoria = :1) AND (eliminado = FALSE)) P INNER JOIN final_usuario U ON P.id_autor = U.id ORDER BY ';
 				 if($orden == 'coste')
 				 {
 					 $query .= 'precio ' . ($invertir ? 'DESC' : 'ASC');
@@ -465,7 +465,7 @@
 			 else 
 			 {
 				 $query = 
-				 'SELECT P.id, P.nombre, U.nombre autor FROM (SELECT id, nombre, id_autor FROM final_producto WHERE id_categoria = :1) P 
+				 'SELECT P.id, P.nombre, U.nombre autor FROM (SELECT id, nombre, id_autor FROM final_producto WHERE (id_categoria = :1) AND (eliminado = FALSE)) P 
 				 INNER JOIN final_usuario U ON P.id_autor = U.id INNER JOIN _final_valoracion_producto V ON P.id = V.id ';
 				 $query .= 'ORDER BY valoracion ' . ($invertir ? 'ASC' : 'DESC') . ', P.id ASC';
 			 }
