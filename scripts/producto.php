@@ -77,6 +77,24 @@
 		 $this->autor = $autor;
 		 $this->detalles = $detalles;
 		}
+		
+		/* Acciones */
+		/**
+		 * Elimina este producto.
+		 */
+		public function eliminar()
+		{
+			DBMySQLQueryManager::eliminarProducto($this->getId());
+		}
+		
+		/**
+		 * Cambiar la categoría de este producto
+		 */
+		public function cambiarCategoria($categoria)
+		{
+			DBMySQLQueryManager::cambiarCategoriaProducto($this->getId(), $categoria->getId());
+			$this->detalles = NULL;
+		}
 
 		/* Consultores */
 		/**

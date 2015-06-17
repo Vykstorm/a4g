@@ -264,6 +264,7 @@
 		  * Esta consulta va a devolver un listado de productos destacados, pertenecientes a una familia en concreto.
 		  * @return Devuelve un listado de productos, que como máximo tendrá "num_productos" productos. El listado contendrá
 		  * menos productos que el máximo, si hay menos de "num_productos" productos que pertenecen a la familia indicada.
+		  * @note Solo se buscará entre los productos no eliminados por los usuarios administradores.
 		  */
 		 public static function getProductosDestacados($familia, $num_productos)
 		 {
@@ -314,6 +315,28 @@
 			 $query = 
 			 'INSERT INTO final_valora (id_usuario, id_producto, valoracion) VALUES (:1, :2, :3) ON DUPLICATE KEY UPDATE valoracion = :3';
 			 $resultado = DBMySQL::instancia()->prepararQuery($query)->ejecutar($id_usuario, $id_producto, $valoracion);
+			 DBMySQL::instancia()->commit();
+		 }
+		 
+		 /**
+		  * @param id_producto Es la id del producto a eliminar
+		  */ 
+		 public static function eliminarProducto($id_producto)
+		 {
+			 $query = 'UPDATE final_producto SET eliminado = TRUE WHERE id = :1';
+			 DBMySQL::instancia()->prepararQuery($query)->ejecutar($id_producto);
+			 DBMySQL::instancia()->commit();
+		 }
+		 
+		 /**
+		  * Cambiar el producto de una categoría a otra 
+		  * @param id_producto Es la id del producto que queire catalogarse de forma distinta.
+		  * @param id_categoria Es la id de la nueva categoría del producto.
+		  */
+		 public static function cambiarCategoriaProducto($id_producto, $id_categoria)
+		 {
+			 $query = 'UPDATE final_producto SET id_categoria = :2 WHERE id = :1';
+			 DBMySQL::instancia()->prepararQuery($query)->ejecutar($id_producto, $id_categoria);
 			 DBMySQL::instancia()->commit();
 		 }
 		 
@@ -506,6 +529,28 @@
 				 $categorias[] = $categoria;
 			 }
 			 return $categorias; 
+		 }
+		 
+		 /**
+		  * @param Es la categoría que se quiere eliminar.
+		  */
+		 public static function eliminarCategoria($id_categoria)
+		 {
+			 $query = 'DELETE FROM final_categoria WHERE id = :1';
+			 DBMySQL::instancia()->prepararQuery($query)->ejecutar($id_categoria);
+			 DBMySQL::instancia()->commit();
+		 }
+		 
+		 /**
+		  * Cambia el nombre de una categoría.
+		  * @param id_categoria Es la id de la categoría que queremos renombrar.
+		  * @param nombre Es el nuevo nombre de la categoría 
+		  */
+		 public static function renombrarCategoria($id_categoria, $nombre)
+		 {
+			 $query = 'UPDATE final_categoria SET nombre = :2 WHERE id = :1';
+			 echo DBMySQL::instancia()->prepararQuery($query)->ejecutar($id_categoria, $nombre);
+			 DBMySQL::instancia()->commit();
 		 }
 	 }
 ?>

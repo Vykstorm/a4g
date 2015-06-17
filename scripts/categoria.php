@@ -68,6 +68,25 @@
 			 $this->familia = $familia;
 		 }
 		 
+		 /* Acciones */
+		 /*
+		  * Elimina la categoría de forma permanente.
+		  * @note Los productos pertenecientes a esta categoría, pasan a "Miscelanea"
+		  */
+		 public function eliminar()
+		 {
+			 DBMySQLQueryManager::eliminarCategoria($this->getId()); 
+		 }
+		 
+		 /*
+		  * Renombra esta categoría de forma permanente.
+		  */
+		 public function renombrar($nombre)
+		 {
+			 DBMySQLQueryManager::renombrarCategoria($this->getId(), $nombre);
+			 $this->nombre = $nombre;
+		 }
+		 
 		 /* Consultores */
 		 /**
 		  * @return Devuelve la id de la categoría  
