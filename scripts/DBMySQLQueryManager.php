@@ -65,7 +65,6 @@
 			$query = 'INSERT INTO final_usuario (nombre, passwd, fecha_registro) VALUES(:1, :2, NOW())';
 			$resultado = DBMySQL::instancia()->prepararQuery($query)->ejecutar($nombre, $passwd);
 			$id = DBMySQL::instancia()->getUltimaId();
-			DBMySQL::instancia()->commit();
 			$resultado = DBMySQL::instancia()->prepararQuery('SELECT admin, fecha_registro FROM final_usuario WHERE id = :1')->ejecutar($id);
 			$fila = $resultado->fetch_assoc();
 			return new Usuario($id, $nombre, $passwd, intval($fila['admin']), $fila['fecha_registro']);
@@ -120,7 +119,6 @@
 			 $query = 'INSERT INTO final_producto (nombre, descripcion, precio, id_autor, id_categoria, fecha_publicacion) VALUES(:1, :2, :3, :4, :5, NOW())';
 			 $resultado = DBMySQL::instancia()->prepararQuery($query)->ejecutar($nombre, $descripcion, $precio, $id_autor, $categoria->getId() );
 			 $id = DBMySQL::instancia()->getUltimaId();
-			 DBMySQL::instancia()->commit();
 			 return self::buscarProductoPorId($id);
 		 }
 		 
@@ -396,7 +394,6 @@
 			 $query = 'INSERT INTO final_categoria (nombre, familia) VALUES(:1, :2)';
 			 $resultado = DBMySQL::instancia()->prepararQuery($query)->ejecutar($nombre, $familia);
 			 $id = DBMySQL::instancia()->getUltimaId();
-			 DBMySQL::instancia()->commit();
 			 return new Categoria($id, $nombre, $familia);
 		 }
 		 

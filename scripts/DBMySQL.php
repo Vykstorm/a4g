@@ -41,6 +41,7 @@
 			  try
 			  {
 				  mysqli_select_db($this->db, $dbname); /* seleccionamos la BD */
+				  mysqli_autocommit($this->db, false); /* auto commit desactivado */
 			  }
 			  catch(mysqli_sql_exception $e)
 			  {

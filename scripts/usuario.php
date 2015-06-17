@@ -29,7 +29,18 @@
 			  $usuario = DBMySQLQueryManager::registrarUsuario($nombre, crear_hash($passwd));
 			  
 			  /* reservamos un directorio para guardar los datos del usuario */
-			  Almacen::registrarUsuario($usuario);
+			  try 
+			  {
+				  Almacen::registrarUsuario($usuario);
+			  }
+			  catch(Exception $e)
+			  {
+				  /* deshacemos cambios en la bd */
+				  DBMySQL::instancia()->rollback();
+				  throw $e;
+			  }
+			  /* confirmamos cambios en la bd */
+			  DBMySQL::instancia()->commit();
 			  
 			  /* logeamos usuario con la nueva cuenta */
 			  $usuario->logear(true);

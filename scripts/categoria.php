@@ -29,7 +29,17 @@
 		 public static function registrar($nombre, $familia, $imagen)
 		 {
 			 $categoria = DBMySQLQueryManager::registrarCategoria($nombre, $familia);
-			 Almacen::registrarCategoria($categoria, $imagen);
+			 try 
+			 {
+				 Almacen::registrarCategoria($categoria, $imagen);
+			 }
+			 catch(Exception $e)
+			 {
+				 DBMySQL::instancia()->rollback();
+				 throw $e;
+			 }
+			 DBMySQL::instancia()->commit();
+			 
 			 return $categoria;
 		 }
 		 

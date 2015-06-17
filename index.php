@@ -552,11 +552,6 @@
 			 {
 				 throw new Exception();
 			 }
-			 
-			 /* registrar el producto */
-			 $producto = Producto::registrar($nombre, $descripcion, $precio, Sesion::getIdUsuario(), $categoria, $fichero, $imagenes); 
-			 /* mostramos la página de visualización de producto */
-			 verProducto($producto);
 		 }
 		 catch(Exception $e)
 		 {
@@ -566,7 +561,13 @@
 			 $plantilla = file_get_contents('plantillas/publicar.html');
 			 $documento = $parser_plantilla->parsear($plantilla);
 			 echo $documento;
+			 return;
 		 }
+		 
+		 /* registrar el producto */
+		 $producto = Producto::registrar($nombre, $descripcion, $precio, Sesion::getIdUsuario(), $categoria, $fichero, $imagenes); 
+		 /* mostramos la página de visualización de producto */
+		 verProducto($producto);
 	 }
 	 
 	 function accionInvalida()

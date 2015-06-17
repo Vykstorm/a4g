@@ -40,7 +40,21 @@
 		public static function registrar($nombre, $descripcion, $precio, $id_autor, $categoria, $datos, $imagenes)
 		{
 			$producto = DBMySQLQueryManager::registrarProducto($nombre, $descripcion, $precio, $id_autor, $categoria, $datos, $imagenes);
-			Almacen::registrarProducto($producto, $datos, $imagenes);
+			try 
+			{
+				Almacen::registrarProducto($producto, $datos, $imagenes);
+			}
+			catch(Exception $e)
+			{
+				/* si hay un error al guardar el producto en el disco, queremos que los cambios realizados en la 
+				 * bd no se produczcan */
+				
+				DBMySQL::instancia()->rollback();
+				throw $e;
+			}
+			/* hacer que los cambios en la bd sean permanentes */
+			DBMySQL::instancia()->commit();
+			
 			return $producto;
 		}
 		
