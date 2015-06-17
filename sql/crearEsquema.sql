@@ -142,3 +142,23 @@ CREATE VIEW _final_valoracion_producto AS
 	(SELECT P.id, COALESCE(valoracion, 0) valoracion
 	FROM _final_ids_productos P LEFT JOIN _final_valora V ON (P.id = V.id)
 	);
+	
+	
+/* Creamos categorías por defecto para cada una de las familias de productos "Miscelánea" */
+
+INSERT INTO final_categoria (familia, nombre) VALUES('Modelos 3D', 'Miscelanea');
+INSERT INTO final_categoria (familia, nombre) VALUES('Texturas', 'Miscelanea');
+INSERT INTO final_categoria (familia, nombre) VALUES('HDRI', 'Miscelanea');
+commit;
+
+DELIMITER //
+CREATE TRIGGER _final_categoria_eliminada
+BEFORE DELETE 
+ON final_categoria
+FOR EACH ROW 
+BEGIN
+	UPDATE final_producto
+	SET id_categoria = (SELECT id FROM final_categoria WHERE (nombre = 'Miscelanea') AND (familia = OLD.familia))
+	WHERE id_categoria = OLD.id;
+END; //
+DELIMITER ;

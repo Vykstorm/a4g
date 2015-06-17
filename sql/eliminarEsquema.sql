@@ -1,3 +1,6 @@
+DROP TRIGGER _final_categoria_eliminada;
+
+
 DROP TABLE final_descarga;
 DROP TABLE final_comenta;
 DROP TABLE final_adquiere;
