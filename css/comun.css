@@ -9,7 +9,6 @@
 	visibility : hidden;
 }	
 
-
 /* estilo para el documento */
  
 body {
@@ -52,7 +51,7 @@ a {
 }
 
 
-#encabezado * {
+#encabezado h1, #encabezado a, #encabezado p {
 	color : white;
 }
 
@@ -97,21 +96,10 @@ a {
 #buscar { 
 	float : left;
 	height : 32px;
-	position : relative;
 }
 #buscar input {
 	height : 24px;
 	color : black;
-}
-
-#buscar span {
-	position : absolute;
-	top : 0;
-	left : 0;
-	width : 100%;
-	height : 100%;
-	color : gray;
-	padding-top : 5px;
 }
 
 #iniciar_busqueda { 
@@ -227,4 +215,21 @@ input.error {
 /* Estilo para dar formato a los listados de productos o de categorías */
 .listado td { 
 	padding : 12px;
+}
+
+
+/* Estilo para los spans que apaerecen por encima de los inputs y los textareas,
+ * que dan la apariencia de que hay texto dentro */
+.overlay_container {
+	position : relative;
+}
+
+.overlay { 
+	position : absolute;
+	top : 0;
+	left : 0;
+	width : 100%;
+	height : 100%;
+	color : gray;
+	padding-top : 5px;
 }

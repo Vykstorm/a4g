@@ -98,11 +98,11 @@
 			<div id="menu">
 			<!-- buscador de productos -->
 				<div id="buscador">
-					<form id="buscar" action="##buscar##" method="post">
+					<form class="overlay_container" id="buscar" action="##buscar##" method="post">
 						<input type="text" id="terminos" name="terminos" value="" onblur="if(this.value.length == 0) { mostrar(document.getElementById('terminos_overlay')); }" />
 						<!-- añadimos un span para que aparezca el texto "Buscar productos" por encima del input,
 						que al clickear en el desaparece -->
-						<span id="terminos_overlay" onclick="esconder(this); document.getElementById('terminos').focus(); ">Buscar productos</span>
+						<span class="overlay" id="terminos_overlay" onclick="esconder(this); document.getElementById('terminos').focus(); ">Buscar productos</span>
 					</form>
 					<img id="iniciar_busqueda" src="imagenes/search.png" width="32" height="32" onclick="document.getElementById('buscar').submit();" />
 				</div>
