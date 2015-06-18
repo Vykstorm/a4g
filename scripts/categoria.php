@@ -72,9 +72,15 @@
 		 /*
 		  * Elimina la categoría de forma permanente.
 		  * @note Los productos pertenecientes a esta categoría, pasan a "Miscelanea"
+		  * @note Lanza una excepción en caso de que esta categoría sea "Miscelánea"
+		  * (no puede eliminarse la categoría miscelánea)
 		  */
 		 public function eliminar()
 		 {
+			 if($this->getNombre() == 'Miscelanea')
+			 {
+				 throw new Exception('La categoría "Miscelanea" no se puede eliminar');
+			 }
 			 DBMySQLQueryManager::eliminarCategoria($this->getId()); 
 		 }
 		 

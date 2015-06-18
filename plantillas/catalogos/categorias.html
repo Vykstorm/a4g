@@ -21,7 +21,7 @@
 	</head>
 	
 	<body>
-		<div class="hidden" id="fondo" onclick="restaurarPagina();"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
+		<div class="hidden" id="fondo" onclick="esconderLoginYAlta(); esconder(document.getElementById('alta_categoria')); esconder(document.getElementById('eliminar_categoria'));"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
 		login o registro -->
 		<!-- panel de alta de usuario -->
 		<div id="alta" class="hidden">	
@@ -141,11 +141,20 @@
 				<!-- %%CATEGORIAS%% -->
 				<tr>
 					<!-- %%CATEGORIA%% -->
-					<td class="imagen">
+					<td>
+						<div class="imagen">
 						<a href="##categoria##" target="_self"><img src="##imagen##" width="##anchura_imagen##" height="##altura_imagen##" /></a>
 						<p>
 							##nombre##
 						</p>
+						</div>
+						<!-- %%USUARIO_ADMIN%% -->
+						<!-- %%MODIFICABLE%% -->
+						<!-- imagen, que al clickearla, aparecerá un diálogo para confirmar la eliminación de
+						la categoría -->
+						<img src="imagenes/eliminar.png" width="32" height="32" onclick="abrirDialogoEliminarCategoria(##id##, '##nombre##');" />	
+						<!-- FIN%%MODIFICABLE%% -->
+						<!-- FIN%%USUARIO_ADMIN%% -->
 					</td>
 					<!-- FIN%%CATEGORIA%% --> 
 				</tr>
@@ -177,6 +186,28 @@
 				<button id="enviar_alta_categoria" type="button" disabled="disabled" onclick="enviarAltaCategoria();">Crear</button>
 		</div>
 		<!-- FIN%%USUARIO_ADMIN%% -->
+		
+		
+		
+		<!-- %%USUARIO_ADMIN%% -->
+		<!-- panel con un diálogo de confirmación de eliminación de un producto -->
+		<div id="eliminar_categoria" class="hidden">
+			<p>
+			¿Seguro que desea eliminar la categoría <q id="categoria_a_eliminar"></q> ? 
+			</p>
+			<button type="button" onclick="eliminarCategoria()">SI</button>
+			<button type="button" onclick="cerrarDialogoEliminarCategoria();">NO</button>
+		</div>
+		
+		<!-- panel que muestra un mensaje en el caso en el que se produjera un error al eliminar
+		la categoría --> 
+		<div id="eliminar_categoria_error" class="hidden">
+			<p class="error" id="eliminar_categoria_error_descripcion">
+			</p>
+			<p>Inténtelo de nuevo más tarde</p>
+			<button type="button" onclick="cerrarDialogoEliminarCategoriaError();">Cerrar</button>
+		</div>
+		<!-- %%USUARIO_ADMIN%% -->
 	</body>
 </html>
  

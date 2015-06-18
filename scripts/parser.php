@@ -205,6 +205,34 @@
 	}
 	
 	/**
+	 * Este parser, procesa un texto de forma condicional. Si se cumple una condición,
+	 * devolverá el texto tal cual, pero si no se cumple, devolverá un texto vacío
+	 */
+	class DummyParserCondicional extends Parser
+	{
+		/**
+		 * Constructor.
+		 * @param condicion Es la condición (una función que toma como parámetro la traza de parseo,
+		 * y devuelve un valor booleano indicando si el texto debe devolverse tal cual, o debe devolverse una 
+		 * cadena vacía)
+		 */
+		public function __construct($condicion)
+		{
+			parent::__construct();
+			$this->condicion = $condicion;
+		}
+		
+		public function parsear($texto, $traza = array())
+		{
+			$condicion = $this->condicion;
+			return ($condicion($traza) ? $texto : '');
+		}
+		
+		private $condicion;
+	}
+	
+	
+	/**
 	 * Es un parser que facilita el parseo de los items de una lista
 	 * (una estructura en la cual hay una marca que se repite N veces)
 	 * e.g.
@@ -253,7 +281,7 @@
 		
 		private $items;
 	}
-	
+
 	/**
 	 * Es igual que el parser anterior solo que para parsear estructuras en las
 	 * cuales hay una marca que se repite N veces, y dentro de esta, otra marca 
@@ -508,12 +536,22 @@
 					'nombre' => function($categoria) { return $categoria->getNombre(); },
 					'imagen' => function($categoria) { return $categoria->getImagen(); },
 					'anchura_imagen' => function($categoria) use($familia) { return ($familia == 'HDRI') ? 512 : 256;  },
-					'altura_imagen' => 256
+					'altura_imagen' => 256,
+					'id' => function($categoria) { return $categoria->getId(); }
 				));
 			
-			/* si es un usuario administrador, le permitimos crear categorías */
+			
+			/* si es un usuario administrador, le permitimos crear categorías y eliminarlas */
 			$usuario = Sesion::getUsuario();
-			$this->reemplazarMarca('USUARIO_ADMIN', (!is_null($usuario) && $usuario->esAdmin()) ? new DummyParser() : '');
+			$this->reemplazarMarca('USUARIO_ADMIN', (!is_null($usuario) && $usuario->esAdmin()) ? new DummyParser() : '');	
+			
+			/* puede eliminar cualquiera de las categorías, a excepción de "Miscelanea" */
+			$parser_categoria->reemplazarMarca('MODIFICABLE', new DummyParserCondicional(
+				function($traza) use($categorias)
+				{
+					$categoria = $categorias[$traza[sizeof($traza)-2]['rep']];
+					return ($categoria->getNombre() != 'Miscelanea');
+				}));
 		}
 	}
 	
