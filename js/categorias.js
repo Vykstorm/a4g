@@ -65,11 +65,11 @@ function enviarAltaCategoria()
 
 
 
-/**
+/**********
  * Funciones para implementar la lógica del diálogo de confirmación de eliminación de un producto 
  */
  
-// variable auxiliar que guardará la id de la categoría que se desea eliminar.
+/** variable auxiliar que guardará la id de la categoría que se desea eliminar */
 var id_categoria_a_eliminar;
  
 /**
@@ -85,7 +85,6 @@ function abrirDialogoEliminarCategoria(id_categoria, nombre_categoria)
 	/* mostramos el panel de confirmación de eliminación de la categoría */
 	mostrarPopup(document.getElementById('eliminar_categoria'));
 }
-
 
 /**
  * Es invocada cuando el usuario administrador confirma la eliminación de la categoría 
@@ -108,7 +107,7 @@ function eliminarCategoria()
 					else
 					{ 
 						/* error al eliminar la categoría */
-						document.getElementById('eliminar_categoria_error_descripcion').innerHTML = msg;
+						document.getElementById('eliminar_categoria_error_descripcion').innerHTML = responseText;
 						esconderPopup(document.getElementById('alta_categoria'));
 						mostrarPopup(document.getElementById('eliminar_categoria_error'));
 					}
@@ -116,10 +115,78 @@ function eliminarCategoria()
 				else
 				{
 					/* servidor no disponible */
-					document.getElementById('eliminar_categoria_error_descripcion').innerHTML = msg;
+					document.getElementById('eliminar_categoria_error_descripcion').innerHTML = 'Servidor no disponible';
 					esconderPopup(document.getElementById('alta_categoria'));
 					mostrarPopup(document.getElementById('eliminar_categoria_error'));
 				}
 			}
 		}, 'categoria=' + id_categoria_a_eliminar);
+}
+
+
+/********
+ * Funciones que implementan la lógica del diálogo en el cual el usuario
+ * administrador puede renombrar una categoría 
+ */
+
+/** variable auxiliar que almacena la id de la categoría a renombrar */
+var id_categoria_a_renombrar;
+
+/**
+ * Esta función es invocada cuando el usuario administrador quiere renombrar
+ * una categoría.
+ * @param id Es la id de la categoría que quiere renombrar
+ * @param nombre_actual Es el nombre actual de la categoría 
+ */
+function abrirDialogoRenombrarCategoria(id, nombre_actual)
+{
+	document.getElementById('categoria_a_renombrar').innerHTML = nombre_actual;
+	esconder(document.getElementById('renombrar_categoria_error'));
+	id_categoria_a_renombrar = id;
+	
+	mostrarPopup(document.getElementById('renombrar_categoria'));
+}
+
+
+/**
+ * Este método es invocado cuando el usuario renombra la categoría 
+ */
+function enviarRenombrarCategoria()
+{
+	var nuevo_nombre = document.getElementById('categoria_nuevo_nombre').value;
+	
+	/* desactivamos el botón que llama a esta función (para evitar múltiples llamadas al servidor) */
+	document.getElementById('enviar_renombrar_categoria').disabled = true;
+	
+	/* enviamos la petición al servidor */
+	crearPeticionHttpAjax('POST', 'category.php?accion=renombrar', 
+		function(readyState, status, responseText)
+		{
+			if(readyState == 4)
+			{
+				if(status == 200)
+				{
+					if(responseText == 'OK')
+					{
+						/* actualizamos la página */
+						location.reload(true);
+					}
+					else
+					{ 
+						/* error al renombrar la categoría */
+						document.getElementById('renombrar_categoria_error').innerHTML = responseText;
+						mostrar(document.getElementById('renombrar_categoria_error'));
+					}
+				}
+				else
+				{
+					/* servidor no disponible */
+					document.getElementById('renombrar_categoria_error').innerHTML = 'Servidor no disponible';
+					mostrar(document.getElementById('renombrar_categoria_error'));
+				}
+				
+				/* activar de nuevo el botón que invoca esta función */
+				document.getElementById('enviar_renombrar_categoria').disabled = (document.getElementById('categoria_nuevo_nombre').value.length == 0);
+			}
+		}, 'categoria=' + id_categoria_a_renombrar + '&nombre=' + nuevo_nombre);	
 }

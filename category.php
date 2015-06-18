@@ -19,7 +19,6 @@
 	require_once 'scripts/sesion.php';
 	require_once 'scripts/usuario.php';
 	require_once 'scripts/categoria.php';
-	
 	try
 	{
 		/* comprobar que el usuario es administrador */
@@ -43,7 +42,7 @@
 		{
 			throw new Exception('Nombre no válido');
 		}
-		
+
 		/* comprobamos la familia y la imágen */
 		if($accion == 'alta')
 		{
@@ -68,7 +67,6 @@
 				throw new Exception('Categoría no válida');
 			}
 		}
-		
 		
 		/* realizamos la acción */
 		switch($accion)

@@ -549,7 +549,7 @@
 		 public static function renombrarCategoria($id_categoria, $nombre)
 		 {
 			 $query = 'UPDATE final_categoria SET nombre = :2 WHERE id = :1';
-			 echo DBMySQL::instancia()->prepararQuery($query)->ejecutar($id_categoria, $nombre);
+			 DBMySQL::instancia()->prepararQuery($query)->ejecutar($id_categoria, $nombre);
 			 DBMySQL::instancia()->commit();
 		 }
 	 }

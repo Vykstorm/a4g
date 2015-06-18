@@ -21,7 +21,7 @@
 	</head>
 	
 	<body>
-		<div class="hidden" id="fondo" onclick="esconderLoginYAlta(); esconderPopup(document.getElementById('alta_categoria')); esconderPopup(document.getElementById('eliminar_categoria'));"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
+		<div class="hidden" id="fondo" onclick="esconderLoginYAlta(); esconderPopup(document.getElementById('alta_categoria')); esconderPopup(document.getElementById('eliminar_categoria')); esconderPopup(document.getElementById('renombrar_categoria')); "></div><!-- este div va a usarse para colocar una capa debajo del panel de 
 		login o registro -->
 		<!-- panel de alta de usuario -->
 		<div id="alta" class="hidden popup">	
@@ -150,6 +150,9 @@
 						</div>
 						<!-- %%USUARIO_ADMIN%% -->
 						<!-- %%MODIFICABLE%% -->
+						<!-- botón, que al ser clickeado, aparecerá un diálogo en el cual el usuario administrador
+						podrá cambiar su nombre -->
+						<button type="button" onclick="abrirDialogoRenombrarCategoria(##id##, '##nombre##');">Renombrar</button>
 						<!-- imagen, que al clickearla, aparecerá un diálogo para confirmar la eliminación de
 						la categoría -->
 						<img src="imagenes/eliminar.png" width="32" height="32" onclick="abrirDialogoEliminarCategoria(##id##, '##nombre##');" />	
@@ -185,11 +188,7 @@
 				</form>
 				<button id="enviar_alta_categoria" type="button" disabled="disabled" onclick="enviarAltaCategoria();">Crear</button>
 		</div>
-		<!-- FIN%%USUARIO_ADMIN%% -->
-		
-		
-		
-		<!-- %%USUARIO_ADMIN%% -->
+
 		<!-- panel con un diálogo de confirmación de eliminación de un producto -->
 		<div id="eliminar_categoria" class="hidden popup">
 			<p>
@@ -207,7 +206,25 @@
 			<p>Inténtelo de nuevo más tarde</p>
 			<button type="button" onclick="esconderPopup(document.getElementById('eliminar_categoria_error'));">Cerrar</button>
 		</div>
-		<!-- %%USUARIO_ADMIN%% -->
+		
+		<!-- panel que muestra un diálogo que permite al usuario renombrar la categoría -->
+		<div id="renombrar_categoria" class="hidden popup">
+			<p id="renombrar_categoria_error" class="hidden error">
+			</p>
+			<p>
+				Renombrar la categoría <q id="categoria_a_renombrar"></q>
+			</p>
+			<div>
+				<label for="categoria_nombre">Nuevo título: </label>
+				<input type="text" id="categoria_nuevo_nombre" name="categoria_nombre" onkeydown="if(this.value.length > 0) { document.getElementById('enviar_renombrar_categoria').disabled = false; } else { document.getElementById('enviar_renombrar_categoria').disabled = true; }" />
+			</div>
+			<div>
+				<button id="enviar_renombrar_categoria" type="button" onclick="enviarRenombrarCategoria();" disabled="disabled">Renombrar</button>
+				<button type="button" onclick="esconderPopup(document.getElementById('renombrar_categoria'));">Cancelar</button>
+			</div>
+		</div>
+		
+		<!-- FIN%%USUARIO_ADMIN%% -->
 	</body>
 </html>
  

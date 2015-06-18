@@ -11,15 +11,14 @@
 	margin-top : 40px;
 }
 
-/* estilo para el panel de alta de categorías y para
- * el panel de confirmación de eliminación de categoría */
-#alta_categoria, #eliminar_categoria, #eliminar_categoria_error {
+/* estilo para los popups de la página  */
+#alta_categoria, #eliminar_categoria, #eliminar_categoria_error, #renombrar_categoria {
 	padding-top : 4%;
 	padding-bottom : 5%;
 }
 
 
-#alta_categoria div { 
+#alta_categoria div, #renombrar_categoria div { 
 	margin-bottom : 11px;
 }
 
@@ -27,7 +26,7 @@
 	margin-left : 110px;
 }
 
-#eliminar_categoria, #eliminar_categoria_error {
+#eliminar_categoria, #eliminar_categoria_error, #renombrar_categoria {
 	text-align : center;
 }
 
