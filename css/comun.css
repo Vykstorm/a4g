@@ -35,7 +35,6 @@ a {
 	margin : 0px;
 }
 
-
 /* estilo para la cabecera */
 
 #encabezado { 
@@ -126,21 +125,39 @@ a {
 
 
 
-/* Estilo para el panel de login y de registro */
+/* estilo para popups */
+/* para dar estilo al fondo debajo del popup */
+#fondo {
+	background-color : black;
+	position : fixed;
+	top : 0;
+	bottom : 0;
+	left : 0;
+	right : 0;
+	width : 100%;
+	height : 100%;
+	z-index : 3000;
+	opacity : 0.4;
+	filter: alpha(opacity=40); /* Para IE8 y anteriores */
+}
 
-#alta, #login {
-	margin: auto;
+/* par dar estilo al popup */
+.popup { 
 	position: fixed;
 	top : 30%;
 	left : 30%;
 	width : 40%;
 	background-image : url("imagenes/background.png");
-	padding-top : 4%;
-	padding-bottom : 5%;
 	z-index : 5000;
-
 	border-style : groove;
 	border-width : 3px;
+}
+
+/* Estilo para el panel de login y de registro */
+
+#alta, #login {
+	padding-top : 4%;
+	padding-bottom : 5%;
 }
 
 #alta { 
@@ -189,21 +206,6 @@ input.error {
 	border-color : red;
 }
 
-
-/* dar estilo al fondo debajo del login y del alta */
-#fondo {
-	background-color : black;
-	position : fixed;
-	top : 0;
-	bottom : 0;
-	left : 0;
-	right : 0;
-	width : 100%;
-	height : 100%;
-	z-index : 3000;
-	opacity : 0.4;
-	filter: alpha(opacity=40); /* Para IE8 y anteriores */
-}
 
 
 /* Estilo para dar formato a las imagenes y a los pies de imagen */

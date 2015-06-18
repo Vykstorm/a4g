@@ -14,18 +14,8 @@
 /* estilo para el panel de alta de categorías y para
  * el panel de confirmación de eliminación de categoría */
 #alta_categoria, #eliminar_categoria, #eliminar_categoria_error {
-	margin: auto;
-	position: fixed;
-	top : 30%;
-	left : 30%;
-	width : 40%;
-	background-image : url("imagenes/background.png");
 	padding-top : 4%;
 	padding-bottom : 5%;
-	z-index : 5000;
-
-	border-style : groove;
-	border-width : 3px;
 }
 
 

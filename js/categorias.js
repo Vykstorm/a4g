@@ -18,17 +18,6 @@ usuarioLogeado = function() {
 
  
 /**
- * Es llamado cuando el usuario quiere dar de alta una nueva categoría (el usuario es
- * administrador 
- */
-function altaCategoria()
-{
-	/* mostramos el panel de alta de categoria */
-	mostrar(document.getElementById('alta_categoria'));
-	mostrar(document.getElementById('fondo'));
-}
-
-/**
  * Es invocado cuando el usuario envía el alta de la categoría 
  */
 function enviarAltaCategoria()
@@ -44,7 +33,7 @@ function enviarAltaCategoria()
 	document.getElementById('enviar_alta_categoria').disabled = true;
 
 	/* enviamos la petición al servidor */
-	crearPeticionHttpAjax2('POST', 'alta_categoria.php', 
+	crearPeticionHttpAjax2('POST', 'category.php?accion=alta', 
 		function(readyState, status, responseText)
 		{
 			if(readyState == 4)
@@ -94,19 +83,9 @@ function abrirDialogoEliminarCategoria(id_categoria, nombre_categoria)
 	id_categoria_a_eliminar = id_categoria;
 	
 	/* mostramos el panel de confirmación de eliminación de la categoría */
-	mostrar(document.getElementById('eliminar_categoria'));
-	/* mostramos el fondo */
-	mostrar(document.getElementById('fondo'));
+	mostrarPopup(document.getElementById('eliminar_categoria'));
 }
 
-/**
- * Es invocada cuando el usuario cancela la eliminación de una categoría
- */
-function cerrarDialogoEliminarCategoria()
-{
-	esconder(document.getElementById('eliminar_categoria'));
-	esconder(document.getElementById('fondo'));
-}
 
 /**
  * Es invocada cuando el usuario administrador confirma la eliminación de la categoría 
@@ -114,7 +93,7 @@ function cerrarDialogoEliminarCategoria()
 function eliminarCategoria()
 {
 	/* enviamos la petición al servidor */
-	crearPeticionHttpAjax('POST', 'eliminar_categoria.php', 
+	crearPeticionHttpAjax('POST', 'category.php?accion=eliminar', 
 		function(readyState, status, responseText)
 		{
 			if(readyState == 4)
@@ -129,34 +108,18 @@ function eliminarCategoria()
 					else
 					{ 
 						/* error al eliminar la categoría */
-						errorEliminacionCategoria(responseText);
+						document.getElementById('eliminar_categoria_error_descripcion').innerHTML = msg;
+						esconderPopup(document.getElementById('alta_categoria'));
+						mostrarPopup(document.getElementById('eliminar_categoria_error'));
 					}
 				}
 				else
 				{
 					/* servidor no disponible */
-					errorEliminacionCategoria('El servidor no está disponible');
+					document.getElementById('eliminar_categoria_error_descripcion').innerHTML = msg;
+					esconderPopup(document.getElementById('alta_categoria'));
+					mostrarPopup(document.getElementById('eliminar_categoria_error'));
 				}
 			}
 		}, 'categoria=' + id_categoria_a_eliminar);
-}
-
-/**
- * Se invoca cuando se ha producido un error en la eliminación de la categoría
- */
-function errorEliminacionCategoria(msg)
-{
-	esconder(document.getElementById('eliminar_categoria'));
-	document.getElementById('eliminar_categoria_error_descripcion').innerHTML = msg;
-	mostrar(document.getElementById('eliminar_categoria_error'));
-}
-
-/**
- * Es invocada cuando el usuario administrador cierra la ventana que le indicaba que se había producido
- * un error al eliminar la categoría
- */
-function cerrarDialogoEliminarCategoriaError()
-{
-	esconder(document.getElementById('eliminar_categoria_error'));
-	esconder(document.getElementById('fondo'));
 }

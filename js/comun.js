@@ -57,6 +57,28 @@ function esconder(elemento)
 	cambiarVisibilidad(elemento, false);
 }
 
+/*****
+ * MÉTODOS PARA LOS POPUPS (MOSTRAR POPUP Y ESCONDER POPUP)
+ * Debe existir un elemento cuya id sea "fondo" que sea al fondo de los popup.
+ */
+/** Muestra un popup.
+ * @param elemento Es un elemento (bloque) que debe ser de la clase "popup"
+ */
+function mostrarPopup(elemento)
+{
+	mostrar(elemento);
+	mostrar(document.getElementById('fondo'));
+}
+
+/**
+ * @param elemento Es el popup que queremos esconder. Debe ser de la clase "popup"
+ * 
+ */
+function esconderPopup(elemento)
+{
+	esconder(elemento);
+	esconder(document.getElementById('fondo'));
+}
 
 
 /***** 
@@ -77,9 +99,8 @@ function mostrarLogin()
 	document.getElementById('login_nombre').value = '';
 	document.getElementById('login_passwd').value = '';
 	esconder(document.getElementById('login_error'));
-	mostrar(document.getElementById('login'));
 	esconderAlta();
-	mostrar(document.getElementById('fondo'));
+	mostrarPopup(document.getElementById('login'));
 }
 
 /**
@@ -87,8 +108,7 @@ function mostrarLogin()
  */
 function esconderLogin() 
 {
-	esconder(document.getElementById('fondo'));
-	esconder(document.getElementById('login'));
+	esconderPopup(document.getElementById('login'));
 }
 
 
@@ -110,9 +130,8 @@ function mostrarAlta()
 	esconder(document.getElementById('alta_error_repasswd'));
 	esconder(document.getElementById('alta_error'));
 	
-	mostrar(document.getElementById('alta'));
 	esconderLogin();
-	mostrar(document.getElementById('fondo'));
+	mostrarPopup(document.getElementById('alta'));
 }
 
 /**
@@ -120,8 +139,7 @@ function mostrarAlta()
  */
 function esconderAlta() 
 {
-	esconder(document.getElementById('fondo'));
-	esconder(document.getElementById('alta'));
+	esconderPopup(document.getElementById('alta'));
 }
 
 /**
@@ -129,9 +147,8 @@ function esconderAlta()
  */
 function esconderLoginYAlta()
 {
-	esconder(document.getElementById('fondo'));
-	esconder(document.getElementById('alta'));
-	esconder(document.getElementById('login'));
+	esconderPopup(document.getElementById('alta'));
+	esconderPopup(document.getElementById('login'));
 }
 
 /**
