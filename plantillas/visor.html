@@ -311,11 +311,11 @@
 					comentario -->
 					<!-- %%USUARIO_LOGEADO%% -->
 					<div id="comentar">
-						<form class="overlay_container" action="##comentar##" method="post">
+						<div class="overlay_container">
 							<textarea id="comentario" name="comentario" rows="3" cols="100" onblur="if(this.value.length == 0) { mostrar(document.getElementById('descripcion_overlay')); }"></textarea> <br/>
 							<span class="overlay" id="descripcion_overlay" onclick="esconder(this); document.getElementById('comentario').focus();">Escribe aqui tu comentario...</span>
-							<input type="submit" value="Enviar" />
-						</form>
+						</div>
+						<button type="button" onclick="comentarProducto(##producto##, document.getElementById('comentario').value);">Enviar</button>
 					</div>
 					<!-- FIN%%USUARIO_LOGEADO%% -->
 				

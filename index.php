@@ -233,13 +233,6 @@
 			 throw new ProductoNoValidoException();
 		 }
 		 
-		 if(Sesion::estaUsuario() && !empty($_POST['comentario']))
-		 {
-			 $comentario = $_POST['comentario'];
-			 $usuario = Sesion::getUsuario();
-			 $usuario->postear($producto, $comentario);
-		 }
-		 
 		 verProducto($producto);
 	 }
 	 

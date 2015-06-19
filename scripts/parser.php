@@ -981,8 +981,7 @@
 				));
 			$this->reemplazarEtiquetasGlobales(
 				array(
-				'producto' => $producto->getId(),
-				'descargar' => 'product.php?accion=descargar&producto=' . $producto->getId()
+				'producto' => $producto->getId()
 				));
 			$familia = $producto->getDetalles()->getCategoria()->getFamilia();
 			
@@ -1029,7 +1028,7 @@
 			/* reemplazamos más etiquetas */
 			$this->reemplazarEtiquetasGlobales(
 				array(
-				'comentar' => 'index.php?accion=verProducto&producto=' . $producto->getId()
+				'descargar' => 'product.php?accion=descargar&producto=' . $producto->getId()
 				));
 		}
 	}

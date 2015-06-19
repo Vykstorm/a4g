@@ -69,6 +69,24 @@ function valorarProducto(id, valoracion)
 		}, 'valoracion=' + valoracion);	
 }
 
+/**
+ * Es invocado cuando el usuario envia un comentario sobre el producto.
+ * @param id Es la id del producto
+ * @param comentario Es el texto del comentario que ha realizado.
+ */
+function comentarProducto(id, comentario)
+{
+	/* realizamos petición ajax al servidor para enviar el comentario */
+	crearPeticionHttpAjax('POST', 'product.php?accion=comentar&producto=' + id,
+		function(readyState, status, responseText)
+		{
+			if(readyState == 4)
+			{
+				location.reload(true);
+			}
+		}, 'comentario=' + comentario);
+}
+
 
 /* reemplazamos la acción a realizar en caso de que el usuario cierre la sesión */
 usuarioLoggedOut = function() { 

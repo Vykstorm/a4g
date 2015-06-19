@@ -5,12 +5,13 @@
 	 * - actualizar valoración de producto de un usuario
 	 * - descargar un producto
 	 * Parámetros que deben ser indicados vía _GET:
-	 * -accion=valorar|descargar|eliminar
+	 * -accion=valorar|descargar|eliminar|comentar
 	 * -producto=id_producto
 	 * Parámetros visa _POST:
 	 * -valoracion=valoracion_usuario (este solo debe indicarse si accion=valorar)
 	 * Para realizar este tipo de acciones, el cliente que realiza la petición,
 	 * debe estar logeado.
+	 * -comentario=comentario del producto (esto debe indicarse si accion=comentar)
 	 * De forma adicional, para descargar un producto, debe ocurir una de las siguientes condiciones:
 	 * - El cliente es el autor del producto.
 	 * - El cliente ha adquirido el producto previamente.
@@ -30,7 +31,8 @@
 		 }
 		 
 		 /* validamos los parámetros de la petición */
-		 if(!isset($_GET['accion']) || (($_GET['accion'] != 'valorar') && ($_GET['accion'] != 'descargar') && ($_GET['accion'] != 'eliminar') ))
+		 $acciones = array('valorar', 'descargar', 'eliminar', 'comentar');
+		 if(!isset($_GET['accion']) || !in_array($_GET['accion'], $acciones) )
 		 {
 			 throw new Exception('Acción no válida');
 		 }
@@ -56,7 +58,7 @@
 			 $valoracion = intval($_POST['valoracion']);
 			 if(!isset($_POST['valoracion']) || (($_POST['valoracion'] != '0') && empty($valoracion) ))
 			 {
-				 throw new Exception('Parámetros de la petición no válidos');
+				 throw new Exception('Valoración del producto no válida');
 			 }
 			 else 
 			 {
@@ -65,7 +67,7 @@
 					 $valoracion = round(intval($_POST['valoracion']));
 					 if(($valoracion < 0) || ($valoracion > 10))
 					 {
-						 throw new Exception('Parámetros de la petición no válidos');
+						 throw new Exception('Valoración del producto no válida');
 					 }
 				 }
 				 else 
@@ -75,6 +77,16 @@
 			 }
 		 }
 		 
+		 $comentario;
+		 if($accion == 'comentar')
+		 {
+			 /* comprobamos el parámetro comentar */
+			 if(empty($_POST['comentario']))
+			 {
+				 throw new Exception('No se ha indicado el comentario');
+			 }
+			 $comentario = $_POST['comentario'];
+		 }
 		 
 		 $usuario = Sesion::getUsuario();
 		 
@@ -110,6 +122,11 @@
 					 throw new Exception('No eres usuario administrador');
 				 }
 			 }
+			 break;
+			 
+			 case 'comentar':
+			
+			 $usuario->postear($producto, $comentario);
 			 break;
 		 }
 		 
