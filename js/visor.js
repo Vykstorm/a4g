@@ -76,6 +76,7 @@ function valorarProducto(id, valoracion)
  */
 function comentarProducto(id, comentario)
 {
+	document.getElementById('enviar_comentario').disabled = true;
 	/* realizamos petición ajax al servidor para enviar el comentario */
 	crearPeticionHttpAjax('POST', 'product.php?accion=comentar&producto=' + id,
 		function(readyState, status, responseText)

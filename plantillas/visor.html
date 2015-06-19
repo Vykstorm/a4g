@@ -312,10 +312,10 @@
 					<!-- %%USUARIO_LOGEADO%% -->
 					<div id="comentar">
 						<div class="overlay_container">
-							<textarea id="comentario" name="comentario" rows="3" cols="100" onblur="if(this.value.length == 0) { mostrar(document.getElementById('descripcion_overlay')); }"></textarea> <br/>
-							<span class="overlay" id="descripcion_overlay" onclick="esconder(this); document.getElementById('comentario').focus();">Escribe aqui tu comentario...</span>
+							<textarea id="comentario" name="comentario" rows="3" cols="100" onblur="if(this.value.length == 0) { mostrar(document.getElementById('comentario_overlay')); }"></textarea> <br/>
+							<span class="overlay" id="comentario_overlay" onclick="esconder(this); document.getElementById('comentario').focus();">Escribe aqui tu comentario...</span>
 						</div>
-						<button type="button" onclick="comentarProducto(##producto##, document.getElementById('comentario').value);">Enviar</button>
+						<button type="button" id="enviar_comentario" onclick="comentarProducto(##producto##, document.getElementById('comentario').value);">Enviar</button>
 					</div>
 					<!-- FIN%%USUARIO_LOGEADO%% -->
 				
