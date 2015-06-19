@@ -575,6 +575,10 @@
 					'categoria' => $catalogo->getCategoria()->getNombre()
 				));
 				
+			/* si el usuario es administrador, añadimos contenido adicional */
+			$this->reemplazarMarca('USUARIO_ADMIN', (Sesion::estaUsuario() && Sesion::getUsuario()->esAdmin()) ? new DummyParser() : '');
+			
+				
 			/* procesamos el catálogo de productos */
 			$productos = $catalogo->getProductosEnPagina($num_pagina);
 			
@@ -586,9 +590,10 @@
 					'producto' => function($producto) { return 'index.php?accion=verProducto&producto=' . $producto->getId(); },
 					'autor' => function($producto) { return $producto->getAutor(); },
 					'anchura_imagen' => function($producto) use($familia) { return ($familia == 'HDRI') ? 512 : 256;  },
-					'altura_imagen' => 256
+					'altura_imagen' => 256,
+					'id' => function($producto) { return $producto->getId(); }
 				));
-			
+				
 			/* procesamos el índice para navegar por las páginas del catálogo */
 			
 			/* si hay página previa, no mostramos el botón de ir a página anterior */
@@ -983,6 +988,8 @@
 				array(
 				'producto' => $producto->getId()
 				));
+				
+				
 			$familia = $producto->getDetalles()->getCategoria()->getFamilia();
 			
 			$parser_modelo = ($familia == 'Modelos 3D') ? new ParserDetallesModelo3D($this, $producto) : '';
@@ -999,6 +1006,9 @@
 			/* si el producto está disponible para el usuario, puede descargar, pero no tiene sentido comprarlo, ...*/
 			$this->reemplazarMarca('COMPRAR', $disponible ? '' : new DummyParser());
 			$this->reemplazarMarca('DESCARGAR', $disponible ? new DummyParser() : '');
+			
+			/* si el usuario es administrador, podrá eliminar el producto */
+			$this->reemplazarMarca('USUARIO_ADMIN', (!is_null($usuario) && $usuario->esAdmin()) ? new DummyParser() : '');
 			
 			/* si está logeado y usuario no es el autor del producto, puede enviar valoración */
 			if(!is_null($usuario) && ($usuario->getNombre() != $producto->getAutor()))

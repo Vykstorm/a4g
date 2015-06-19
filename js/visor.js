@@ -88,6 +88,39 @@ function comentarProducto(id, comentario)
 		}, 'comentario=' + comentario);
 }
 
+/**
+ * Es invocado cuando el usuario administrador quiere eliminar el producto.
+ * @param id Es la id del producto
+ */
+function eliminarProducto(id)
+{
+	esconderPopup(document.getElementById('eliminar_producto'));
+	crearPeticionHttpAjax('POST', 'product.php?accion=eliminar&producto=' + id,
+		function(readyState, status, responseText)
+		{
+			if(readyState == 4)
+			{
+				if((status == 200) && (responseText == 'OK'))
+				{
+					/* el producto ha sido eliminado, ir al índice */
+					window.open('index.php', '_self');
+				}
+				else
+				{
+					/* hubo un error en la eliminación del producto */
+					if(status == 404)
+					{
+						document.getElementById('eliminar_producto_error_descripcion').innerHTML = 'Servidor no disponible';
+					}
+					else
+					{
+						document.getElementById('eliminar_producto_error_descripcion').innerHTML = responseText;
+					}
+					mostrarPopup(document.getElementById('eliminar_producto_error'));
+				}
+			}
+		});
+}
 
 /* reemplazamos la acción a realizar en caso de que el usuario cierre la sesión */
 usuarioLoggedOut = function() { 

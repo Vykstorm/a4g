@@ -22,7 +22,7 @@
 	</head>
 	
 	<body>
-		<div class="hidden" id="fondo" onclick="esconderLoginYAlta();"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
+		<div class="hidden" id="fondo" onclick="esconderLoginYAlta(); esconderPopup(document.getElementById('eliminar_producto')); esconderPopup(document.getElementById('eliminar_producto_error'));"></div><!-- este div va a usarse para colocar una capa debajo del panel de 
 		login o registro -->
 		<!-- panel de alta de usuario -->
 		<div id="alta" class="hidden popup">	
@@ -260,11 +260,17 @@
 				<img alt="Añadir al carrito" id="comprar" onclick="comprarProducto(##producto##);" width="64" height="64" src="imagenes/meteralcarrito.png"></img>
 				<!-- FIN%%COMPRAR%% -->
 				<!-- %%DESCARGAR%% -->
-				<a id="descargar" href="##descargar##">
-					<img alt="descargar" src="imagenes/descargar.png" width="64" height="64" />
+				<a  href="##descargar##">
+					<img id="descargar" alt="descargar" src="imagenes/descargar.png" width="64" height="64" />
 				</a>
 				
 				<!-- FIN%%DESCARGAR%% -->
+				
+				
+				<!-- %%USUARIO_ADMIN%% -->
+				<!-- icono que permite al usuario administrador, eliminar el producto -->
+				<img id="eliminar" alt="Eliminar producto" src="imagenes/eliminar.png" width="64" height="64" onclick="mostrarPopup(document.getElementById('eliminar_producto'));"/>
+				<!-- FIN%%USUARIO_ADMIN%% -->
 				
 				<!-- %%VALORAR%% -->
 				<div id="valorar">
@@ -321,6 +327,26 @@
 				
 				</div>
 			</div>
+		</div>
+		
+				
+		<!-- este será un diálogo de confirmación que se le mostrará al usuario administrador cuando intente eliminar
+		el producto (para confirmar la eliminación del producto) -->
+		<div id="eliminar_producto" class="hidden popup">
+			<p>
+			¿Seguro que desea eliminar el producto <q>##nombre##</q> ? 
+			</p>
+			<button type="button" onclick="eliminarProducto(##producto##)">SI</button>
+			<button type="button" onclick="esconderPopup(document.getElementById('eliminar_producto'));">NO</button>
+		</div>
+		
+		<!-- panel que muestra un mensaje en el caso en el que se produjera un error al eliminar
+		el producto--> 
+		<div id="eliminar_producto_error" class="hidden popup">
+			<p class="error" id="eliminar_producto_error_descripcion">
+			</p>
+			<p>Inténtelo de nuevo más tarde</p>
+			<button type="button" onclick="esconderPopup(document.getElementById('eliminar_producto_error'));">Cerrar</button>
 		</div>
 	</body>
 </html>

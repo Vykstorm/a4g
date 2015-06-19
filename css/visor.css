@@ -28,11 +28,11 @@
 	width : 30%;
 }
 
-#valorar, #descargar, #comprar {
+#valorar, #descargar, #comprar, #eliminar {
 	margin-bottom : 30px;
 }
 
-#comprar:hover {
+#comprar:hover, #descargar:hover, #eliminar:hover {
 	cursor : pointer;
 }
 
@@ -45,4 +45,11 @@
 
 #comentar {
 	margin-top : 40px;
+}
+
+/* estilo para los popups de la página */
+#eliminar_producto, #eliminar_producto_error { 
+	padding-top : 2%;
+	padding-bottom : 2%;
+	text-align : center;
 }

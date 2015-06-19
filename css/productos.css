@@ -14,3 +14,14 @@
 	padding-right : 10px;
 	padding-bottom :15px;
 }
+
+.eliminar:hover {
+	cursor : pointer;
+}
+
+/* estilo para dar formato a los popups de la página */
+#eliminar_producto, #eliminar_producto_error { 
+	text-align : center;
+	padding-top : 2%;
+	padding-bottom : 2%;
+}
