@@ -63,10 +63,10 @@ function comprarProducto(id)
 function valorarProducto(id, valoracion)
 {
 	/* realizamos una petición ajax al servidor para actualizar la valoración del producto */
-	crearPeticionHttpAjax('GET', 'product.php?accion=valorar&producto=' + id + '&valoracion=' + valoracion, 
+	crearPeticionHttpAjax('POST', 'product.php?accion=valorar&producto=' + id, 
 		function(readyState, status, responseText)
 		{
-		});	
+		}, 'valoracion=' + valoracion);	
 }
 
 

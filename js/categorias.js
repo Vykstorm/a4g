@@ -92,7 +92,7 @@ function abrirDialogoEliminarCategoria(id_categoria, nombre_categoria)
 function eliminarCategoria()
 {
 	/* enviamos la petición al servidor */
-	crearPeticionHttpAjax('POST', 'category.php?accion=eliminar', 
+	crearPeticionHttpAjax('POST', 'category.php?accion=eliminar&categoria=' + id_categoria_a_eliminar, 
 		function(readyState, status, responseText)
 		{
 			if(readyState == 4)
@@ -120,7 +120,7 @@ function eliminarCategoria()
 					mostrarPopup(document.getElementById('eliminar_categoria_error'));
 				}
 			}
-		}, 'categoria=' + id_categoria_a_eliminar);
+		});
 }
 
 
@@ -159,7 +159,7 @@ function enviarRenombrarCategoria()
 	document.getElementById('enviar_renombrar_categoria').disabled = true;
 	
 	/* enviamos la petición al servidor */
-	crearPeticionHttpAjax('POST', 'category.php?accion=renombrar', 
+	crearPeticionHttpAjax('POST', 'category.php?accion=renombrar&categoria=' + id_categoria_a_renombrar, 
 		function(readyState, status, responseText)
 		{
 			if(readyState == 4)
@@ -188,5 +188,5 @@ function enviarRenombrarCategoria()
 				/* activar de nuevo el botón que invoca esta función */
 				document.getElementById('enviar_renombrar_categoria').disabled = (document.getElementById('categoria_nuevo_nombre').value.length == 0);
 			}
-		}, 'categoria=' + id_categoria_a_renombrar + '&nombre=' + nuevo_nombre);	
+		}, 'nombre=' + nuevo_nombre);	
 }

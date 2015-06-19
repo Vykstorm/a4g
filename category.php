@@ -6,12 +6,12 @@
 	 * 
 	 * Parámetros pasados por GET:
 	 * accion = alta|eliminar|renombrar
+	 * categoria = id_categoria (si accion = alta o accion = renombrar)
 	 * 
 	 * Parámetros pasados por POST: 
 	 * familia = familia de la categoria (solo en el alta)
 	 * nombre = nombre de la categoría (si accion = alta o accion = renombrar)
 	 * imagen = Es la imagen de la categoría (si accion = alta)
-	 * categoria = id_categoria (si accion = alta o accion = renombrar)
 	 * 
 	 * En cualquier caso, el usuario que realiza la petición, debe ser un usuario
 	 * administrador. Si no lo es, se devolverá un error.
@@ -62,7 +62,7 @@
 		$categoria;
 		if(($accion == 'renombrar') || ($accion == 'eliminar'))
 		{
-			if(empty($_POST['categoria']) || (intval($_POST['categoria']) == 0) || is_null($categoria = Categoria::buscarPorId(intval($_POST['categoria']))))
+			if(empty($_GET['categoria']) || (intval($_GET['categoria']) == 0) || is_null($categoria = Categoria::buscarPorId(intval($_GET['categoria']))))
 			{
 				throw new Exception('Categoría no válida');
 			}

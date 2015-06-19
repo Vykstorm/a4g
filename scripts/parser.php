@@ -981,7 +981,8 @@
 				));
 			$this->reemplazarEtiquetasGlobales(
 				array(
-				'producto' => $producto->getId()
+				'producto' => $producto->getId(),
+				'descargar' => 'product.php?accion=descargar&producto=' . $producto->getId()
 				));
 			$familia = $producto->getDetalles()->getCategoria()->getFamilia();
 			
