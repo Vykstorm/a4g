@@ -1,7 +1,8 @@
 
 /* estilo para el cuerpo del documento */
 #cuerpo {
-	padding-left : 29%;
+	margin : auto;
+	width : 40%;
 }
 
 #publicar div {
